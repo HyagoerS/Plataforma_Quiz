@@ -1,3 +1,4 @@
+#RF 1
 class Topico:
     def __init__(self, nome):
         self.nome = nome
@@ -30,3 +31,23 @@ gestao.criar_topico("História")
 gestao.editar_topico("História", "História Geral")
 
 gestao.excluir_topico("Matemática")
+
+#RF 2
+
+class Criacao_Questoes:
+    def __init__(self):
+        pass
+
+    def criar_pergunta(self):
+        pergunta = input("Digite o texto da pergunta: ")
+        return Questao(pergunta)
+
+    def inserir_opcoes(self, questao):
+        print("Digite uma das opções resposta: ")
+
+
+    def indicar_reposta(self, questao):
+        return
+
+
+#RF 3
