@@ -7,6 +7,19 @@ class Notas:
         return
     
 
-    def 
+class AutenticarLogin:
+    def __init__(self):
+        pass
+
+
+    def validar_login(self):
+        return
+    
+
+    def testes_liberados(self):
+        return
+    
+
+    
 
 
