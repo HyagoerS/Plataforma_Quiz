@@ -1,11 +1,15 @@
-#RF 2
+#RF2
+
+class Questao:
+    def __init__(self):
+        pass
 
 class Criacao_Questoes:
     def __init__(self):
         pass
 
     def criar_pergunta(self, questao):
-        pergunta = input("Digite o texto da pergunta: ")
+        pergunta = input("Moficiar para marcar e não escrever: ")
         return questao(pergunta)
 
     def inserir_opcoes(self, questao):

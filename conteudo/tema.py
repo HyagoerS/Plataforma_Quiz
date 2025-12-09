@@ -1,4 +1,4 @@
-#RF 1
+#RF1
 class Tema:
     def __init__(self, nome):
         self.nome = nome
@@ -6,20 +6,20 @@ class Tema:
 
 class GerenciadorTema:
     def __init__(self):
-        self.topicos = []
+        self.temas = []
 
     def criar_tema(self, nome):
-        self.topicos.append(Tema(nome))
+        self.temas.append(Tema(nome))
 
     def editar_tema(self, nome_antigo, nome_novo):
-        for topico in self.topicos:
-            if topico.nome == nome_antigo:
-                topico.nome = nome_novo
+        for tema in self.temas:
+            if tema.nome == nome_antigo:
+                tema.nome = nome_novo
                 return True
         return False
 
     def excluir_tema(self, nome, tema):
         for tema in self.temas:
             if tema.nome == nome:
-                self.topicos.remove(tema)
+                self.temas.remove(tema)
                 return

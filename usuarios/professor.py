@@ -1,7 +1,8 @@
-from conteudo import GerenciadorTema
-from conteudo import tema
+from conteudo.questao import Criacao_Questoes
+from conteudo.multipla_escolha import MultiplaEscolha
+from conteudo.tema import GerenciadorTema
 
-class Professor(tema):
+class Professor():
     def __init__(self, nome):
         super().__init__(nome)
         self.gerenciador_temas = GerenciadorTema()
@@ -13,7 +14,7 @@ class Professor:
     def criar_tema(self, nome):
         self.gerencia_temas.criar_tema(nome)
 
-                                       
-self.gestao.criar_tema("História")
-self.gestao.editar_tema("História", "História Geral")
-self.gestao.excluir_tema("Matemática")
+                     
+gestao.criar_tema("História")
+gestao.editar_tema("História", "História Geral")
+gestao.excluir_tema("Matemática")
