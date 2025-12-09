@@ -1,6 +1,13 @@
 from flask import Flask, render_template, request 
+from estrutura.sistema import Sistema
+
 
 app = Flask(__name__)
+
+
+
+# Criamos 1 único sistema GLOBAL
+sistema = Sistema()
 
 
 
@@ -14,6 +21,10 @@ def home():
 @app.route('/logado')
 def menu_logado():
     return render_template("logado.html")
+
+@app.route("/aluno")
+def area_aluno():
+    return render_template("aluno.html")
 
 
 

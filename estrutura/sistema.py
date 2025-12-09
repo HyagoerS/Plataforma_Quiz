@@ -1,3 +1,8 @@
+from usuarios.aluno import Aluno
+from usuarios.professor import Professor
+from turmas.turma import Turma
+from conteudo.tema import Tema
+
 class Notas:
     def __init__(self, nota_aluno):
         self.nota_aluno = []
@@ -20,6 +25,34 @@ class AutenticarLogin:
         return
     
 
-    
+
+class Sistema:
+    def __init__(self):
+        self.usuarios = []
+        self.turmas = []
+        self.temas = []
+
+    # Exemplo RF: criar aluno
+
+    def cadastrar_aluno(self, nome, email):
+        aluno = Aluno(nome, email)
+        self.usuarios.append(aluno)
+        return aluno
+
+    # --------------------
+    # Exemplo RF: criar turma
+    # --------------------
+    def criar_turma(self, nome, professor):
+        turma = Turma(nome, professor)
+        self.turmas.append(turma)
+        return turma
+
+    # --------------------
+    # Exemplo RF: associar aluno a turma
+    # --------------------
+    def adicionar_aluno_na_turma(self, id_turma, aluno):
+        turma = self.turmas[id_turma]
+        turma.adicionar_aluno(aluno)
+        return turma
 
 
