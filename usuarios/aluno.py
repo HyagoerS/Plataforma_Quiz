@@ -1,4 +1,4 @@
-from teste.teste import AplicarTesteTeste
+'''from teste.teste import AplicarTesteTeste'''
 
 
 class Aluno:

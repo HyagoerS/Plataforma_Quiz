@@ -1,4 +1,4 @@
-from turmas.turma import Turma
+'''from turmas.turma import Turma'''
 
 
 class AplicarTeste:

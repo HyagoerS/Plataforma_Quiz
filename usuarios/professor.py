@@ -1,5 +1,5 @@
-from conteudo.questao import Criacao_Questoes
-from conteudo.multipla_escolha import MultiplaEscolha
+'''from conteudo.questao import Criacao_Questoes
+from conteudo.multipla_escolha import MultiplaEscolha'''
 from conteudo.tema import GerenciadorTema
 
 class Professor():

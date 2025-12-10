@@ -1,10 +1,11 @@
+from usuarios.aluno import Aluno
+
 class Resultado:
     def __init__(self, teste_aluno, gabarito):
         self.teste_aluno = teste_aluno
         self.__gabarito = gabarito
 
 
-    def 
 
     def exibir_pontuacao(self,):
         return

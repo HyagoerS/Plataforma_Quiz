@@ -1,7 +1,7 @@
 from usuarios.aluno import Aluno
-from usuarios.professor import Professor
+'''from usuarios.professor import Professor
 from turmas.turma import Turma
-from conteudo.tema import Tema
+from conteudo.tema import Tema'''
 
 class Notas:
     def __init__(self, nota_aluno):
