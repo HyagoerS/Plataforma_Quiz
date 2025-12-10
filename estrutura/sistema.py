@@ -34,22 +34,28 @@ class Sistema:
 
     # Exemplo RF: criar aluno
 
-    def cadastrar_aluno(self, nome, email):
-        aluno = Aluno(nome, email)
+    def cadastrar_aluno(self, nome, senha):
+        aluno = Aluno(nome, senha)
         self.usuarios.append(aluno)
         return aluno
 
-    # --------------------
-    # Exemplo RF: criar turma
-    # --------------------
+
+    def autenticar(self, nome, senha):
+        for usuario in self.usuarios:
+            if usuario.nome == nome and usuario.senha == senha:
+                return usuario
+        return None
+
+
+# RF: criar turma
+
     def criar_turma(self, nome, professor):
         turma = Turma(nome, professor)
         self.turmas.append(turma)
         return turma
 
-    # --------------------
-    # Exemplo RF: associar aluno a turma
-    # --------------------
+
+
     def adicionar_aluno_na_turma(self, id_turma, aluno):
         turma = self.turmas[id_turma]
         turma.adicionar_aluno(aluno)

@@ -1,4 +1,5 @@
-#RF 3
+from turmas.turma import Turma
+
 
 class AplicarTeste:
     def __init__(self, data, horario, tempo_maximo):
@@ -19,6 +20,11 @@ class AplicarTeste:
     
     def definir_prazo(self, inicio, fim):
         return
+
+    def definir_tempo(self, minutos):
+        return
+
+    
     
 
 
