@@ -1,9 +1,14 @@
 #RF11
+'''
+Essa criação de usúario estara apenas envolvida com o professor o
+aluno ira participar do quiz atráves do pin/código da sala
+'''
 class CriarUsuario:
-    def __init__(self, id, nome, senha):
-        self.id = []
+    def __init__(self, nome, login, senha, email):
         self.nome = nome
+        self.login = login
         self.senha = senha
+        self.email= email
     
 
     def criar_usuario(self, ):

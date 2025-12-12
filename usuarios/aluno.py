@@ -13,7 +13,9 @@ class Aluno:
 
     def visualizar_gabarito(self, teste):
         return
-
+    
+    
+#modificar essa ideia de fazer login para aluno 
 class AlunoLogin:
     def __init__(self, login, senha, testes_disponiveis):
         self.login = login

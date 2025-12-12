@@ -63,6 +63,18 @@ def montar_quiz():
 def teste_quiz():
     return render_template("teste_quiz.html")
 
+#Cadastrar usuario
+@app.route('/cadastrar.html', methods=['GET', 'POST'])
+def cadastrarusuario():
+
+    if request.method == "GET":
+        return render_template("cadastrar.html")
+    nome = request.form.get("nomeUsuario")
+    senha = request.form.get("senhaUsuario")
+    login = request.form.get("loginUsuario")
+    email = request.form.get("emailUsuario")
+
+    return render_template("principal.html", mensagem=" cadastrado com sucesso!")
 
 #area de sistemas/admin
 @app.route("/admin_sistema")

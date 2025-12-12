@@ -10,8 +10,8 @@ class AplicarTeste:
         self.tempo_maximo = tempo_maximo
 
 
-    def adicionar_questoes(self, questoe):
-        self.questoes.append(questoe)
+    def adicionar_questoes(self, questoes):
+        self.questoes.append(questoes)
 
 
 
