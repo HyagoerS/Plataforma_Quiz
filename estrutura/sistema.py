@@ -1,4 +1,4 @@
-from usuarios.aluno import Aluno
+'''from usuarios.aluno import Aluno'''
 '''from usuarios.professor import Professor
 from turmas.turma import Turma
 from conteudo.tema import Tema'''
@@ -28,11 +28,13 @@ class AutenticarLogin:
 
 class Sistema:
     def __init__(self):
-        self.usuarios = []
-        self.turmas = []
-        self.temas = []
+        self.usuarios = {}
+        self.turmas = {}       
+        self.temas = {}        
+        self.testes_disponiveis = {} 
+        self.resultados = {}   
 
-    # Exemplo RF: criar aluno
+
 
     def cadastrar_aluno(self, nome, senha):
         aluno = Aluno(nome, senha)
@@ -68,13 +70,7 @@ from estrutura.excecoes import ErroDeLogin, ObjetoNaoEncontrado
 from datetime import datetime
 
 class Sistema:
-    def __init__(self):
-        # Armazenamento de dados (RF13: Painel de Visualização)
-        self.usuarios = {}      # {id: objeto_usuario}
-        self.turmas = {}        # {id: objeto_turma}
-        self.temas = {}         # {titulo: objeto_tema}
-        self.testes_disponiveis = {} # {id: objeto_teste}
-        self.resultados = {}    # {id_aluno: {id_teste: objeto_resultado}}
+
         
         # Contadores para IDs únicos (simulação de auto-incremento)
         self._contador_usuarios = 0

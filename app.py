@@ -75,7 +75,11 @@ def cadastrarusuario():
     email = request.form.get("emailUsuario")
 
     return render_template("principal.html", mensagem=" cadastrado com sucesso!")
-
+#Remover usuario
+@app.route('/remover_usuario', methods=['GET', 'POST'])
+def remover_funcionario():
+    if request.method == 'POST':
+        nome = request.form.get("nomeRemover")
 #area de sistemas/admin
 @app.route("/admin_sistema")
 def sistema_adimin():

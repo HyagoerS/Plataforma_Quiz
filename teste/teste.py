@@ -1,4 +1,6 @@
-'''from turmas.turma import Turma'''
+'''from turmas.turma import Turma
+from datetime import datetime
+from estrutura.excecoes import DataInvalida'''
 
 
 class AplicarTeste:
@@ -24,18 +26,14 @@ class AplicarTeste:
     def definir_tempo(self, minutos):
         return
 
-'''from datetime import datetime
-from estrutura.excecoes import DataInvalida
+'''
 
 class Teste:
     def __init__(self, id, titulo, questoes_com_pontuacao, id_turma, inicio, termino, tempo_max_minutos, id_professor):
         self._id = id # Protegido
         self.titulo = titulo
-        # { Questao_Objeto: pontuacao_definida } (RF3)
         self._questoes = questoes_com_pontuacao
         self.id_turma = id_turma
-        
-        # RF4: Publicação e Prazo
         self._data_inicio = inicio 
         self._data_termino = termino
         self._tempo_maximo_minutos = tempo_max_minutos

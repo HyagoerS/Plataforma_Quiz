@@ -38,10 +38,5 @@ class Professor(Usuario):
         return novo_tema
 
 
-    def criar_questao(self, enunciado, pontuacao, opcoes, indice_correto, sistema):
-        from conteudo.multipla_escolha import QuestaoMultiplaEscolha
-        questao = QuestaoMultiplaEscolha(0, enunciado, pontuacao, opcoes, indice_correto)
-        questao._id = sistema.adicionar_questao(questao)
-        return questao
 
   

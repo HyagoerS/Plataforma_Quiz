@@ -7,7 +7,9 @@
 </head>
 <body>
 
-    
+<h1>Aréa Administradora de Usuários</h1>
+
+<h3>Criar Usuário</h3>
 <form action="/cadastrar" method="POST">
     <label>Nome:</label>
     <input type="text" name="nomeUsuario" required><br>
@@ -18,9 +20,17 @@
     <label>Email:</label>
     <input type="text" name="emailUsuario" required><br>
 
-
-
     <button type="submit">Cadastrar</button>
 </form>
+
+<h3>Excluir Usuário</h3>
+
+<form action="/remover_ususario" method="POST">
+    <label>Email:</label>
+    <input type="text" name="emailUsuario" required><br>
+    <button type="submit">Remover Usuário</button>
+</form>
+
+
 </body>
 </html>
