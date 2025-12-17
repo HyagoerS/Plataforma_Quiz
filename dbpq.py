@@ -2,16 +2,16 @@
 
 
 def aluno():
-    conn = sqlite.connect('dbpq.sqlite3')
+    conn = sqlite.connect('dbqr.sqlite3')
     cursor = conn.cursor()
 
 
 
 def login(login, senha):
-    conn = sqlite.connect('dbpq.sqlite3')
+    conn = sqlite.connect('dbqr.sqlite3')
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM aluno WHERE login=? and senha=?", (login, senha) )
+    cursor.execute("SELECT * FROM aluno WHERE login=?, senha=? and email=?", (login, senha, email) )
     dados = cursor.fetchall()
     conn.close()
     return len(dados) > 0
