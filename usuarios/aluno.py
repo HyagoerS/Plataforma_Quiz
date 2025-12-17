@@ -1,9 +1,9 @@
 '''from teste.teste import AplicarTesteTeste
-from .usuario import Usuario
+
 from teste.resultado import Resultado'''
+from .usuario import Usuario
 
-
-class Aluno:
+class Aluno(Usuario):
     def __init__(self, nome, senha):
         self.nome = nome
         self.senha = senha

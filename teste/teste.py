@@ -4,12 +4,16 @@ from estrutura.excecoes import DataInvalida'''
 
 
 class AplicarTeste:
-    def __init__(self, data, horario, tempo_maximo):
-        self.questoes = []
-        self.pontuacao = []
-        self.data = data
-        self.horario = horario
-        self.tempo_maximo = tempo_maximo
+    def __init__(self, id, titulo, questoes_com_pontuacao, id_turma, inicio, termino, tempo_max_minutos, id_professor):
+        self._id = id
+        self.titulo = titulo
+        self._questoes = questoes_com_pontuacao
+        self.id_turma = id_turma
+        self._data_inicio = inicio 
+        self._data_termino = termino
+        self._tempo_maximo_minutos = tempo_max_minutos
+        self.id_professor = id_professor
+        
 
 
     def adicionar_questoes(self, questoes):
@@ -64,7 +68,17 @@ class Teste:
         # RF8: Controle de Tempo / Envio automático
         if tempo_decorrido > self._tempo_maximo_minutos:
             return True # O tempo acabou, enviar automaticamente
-        return False'''
+        return False
+        
+        
+        class AplicarTeste:
+    def __init__(self, data, horario, tempo_maximo):
+        self.questoes = []
+        self.pontuacao = []
+        self.data = data
+        self.horario = horario
+        self.tempo_maximo = tempo_maximo
+        '''
     
     
 

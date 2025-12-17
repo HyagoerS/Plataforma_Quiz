@@ -132,7 +132,7 @@ def remover_funcionario():
 #area de sistemas/admin
 @app.route("/admin_sistema")
 def sistema_adimin():
-    render_template
+    return render_template
 
 if __name__ == '__main__':
     app.run(debug=True)

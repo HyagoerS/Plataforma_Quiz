@@ -7,10 +7,10 @@ class Usuario:
         self.email = email
         self.__senha = senha      
         
-    def verificar_dados(self, email, senha):
-        if self.email == email and self.__senha == senha:
+    def verificar_dados(self, login, senha):
+        if self.login == login and self.__senha == senha:
             return True
-        raise ErroDeLogin("Email ou senha incorretos.")
+        raise ErroDeLogin("Login ou senha incorretos.")
 
     def get_id(self):
         return self._id

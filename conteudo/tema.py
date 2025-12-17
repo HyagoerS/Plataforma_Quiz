@@ -1,7 +1,4 @@
 #RF1
-class Tema:
-    def __init__(self, nome):
-        self.nome = nome
     
 class Tema:
     def __init__(self, titulo, descricao):

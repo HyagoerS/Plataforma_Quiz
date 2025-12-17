@@ -16,14 +16,3 @@ def login(login, senha):
     conn.close()
     return len(dados) > 0
 '''
-
-
-'''def buscar(teste_quiz):
-    conn = sqlite.connect('dbpq.sqlite3')
-    cursor = conn.cursor()
-
-    cursor.execute("SELEC WHERE teste=?", (teste_quiz,))
-    resultado = cursor.fetchall()
-
-    conn.close()
-    return resultado'''

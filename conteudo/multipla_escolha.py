@@ -1,18 +1,6 @@
 from .questao import Questao
 
 
-class MultiplaEscolha:
-    def __init__(self, lista_opcoes, reposta_correta):
-        self.lista_opcoes = lista_opcoes
-        self.reposta_correta = reposta_correta
-
-
-    def adicionar_opcao(self, opcao):
-        return
-
-    def difinir_correta(self, indice):
-        return
-
 
 class QuestaoMultiplaEscolha(Questao):
     def __init__(self, id_questao, enunciado, pontuacao, opcoes, indice_correto):
@@ -20,6 +8,11 @@ class QuestaoMultiplaEscolha(Questao):
         self.opcoes = opcoes
         self.__indice_correto = indice_correto
 
+    def adicionar_opcao(self, opcao):
+        return
+
+    def difinir_correta(self, indice):
+        return
 
 
     def corrigir(self, resposta_aluno):

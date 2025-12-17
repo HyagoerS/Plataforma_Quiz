@@ -1,24 +1,7 @@
-'''from conteudo.questao import Criacao_Questoes
-from conteudo.multipla_escolha import MultiplaEscolha
-from estrutura.excecoes import DataInvalida
-from datetime import datetime, timedelta'''
 from conteudo.tema import GerenciadorTema
 from .usuario import Usuario
 from conteudo.tema import Tema
 
-class Professor():
-    def __init__(self, nome):
-        super().__init__(nome)
-        self.gerenciador_temas = GerenciadorTema()
-
-class Professor:
-    def __init__(self):
-        self.gerencia_temas = GerenciadorTema()
-
-    def criar_tema(self, nome):
-        self.gerencia_temas.criar_tema(nome)
-
-                     
 
 
 class Professor(Usuario):
