@@ -11,10 +11,3 @@ class Turma:
 
 
 
-    def adicionar_membro(self, usuario):
-        if isinstance(usuario, Aluno):
-            self._alunos.append(usuario)
-        elif isinstance(usuario, Professor):
-            self._professores.append(usuario)
-        else:
-            raise PermissaoNegada("Apenas Alunos ou Professores podem ser adicionados a uma Turma.")

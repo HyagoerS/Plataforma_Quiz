@@ -1,5 +1,3 @@
-'''from usuarios.professor import Professor
-from conteudo.tema import Tema'''
 from usuarios.aluno import Aluno
 from turmas.turma import Turma
 

@@ -1,4 +1,4 @@
-#RF2
+
 
 class Questao:
     def __init__(self, id_questao, enunciado, pontuacao):

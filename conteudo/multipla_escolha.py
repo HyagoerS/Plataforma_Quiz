@@ -9,7 +9,8 @@ class QuestaoMultiplaEscolha(Questao):
         self.__indice_correto = indice_correto
 
     def adicionar_opcao(self, opcao):
-        return
+        if opcao == self.__opcao:
+            return
 
     def difinir_correta(self, indice):
         return

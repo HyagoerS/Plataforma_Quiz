@@ -1,5 +1,4 @@
-'''from turmas.turma import Turma
-'''
+
 
 
 class AplicarTeste:
@@ -15,10 +14,18 @@ class AplicarTeste:
         
 
 
-    def adicionar_questoes(self, questoes):
-        self.questoes.append(questoes)
+    def adicionar_questoes(self, questao):
+        self.questoes.append(questao)
 
 
+    def exibir_teste(self):
+        for teste, q in enumerate(self.lista_questoes, start=1):
+            return f"{teste}. {q.questao}"
+
+    def aplicar(self):
+        for questao in self.teste.lista_questao:
+            print(questao.questao)
+            self.re
 
     def associar_turmas(self):
         return

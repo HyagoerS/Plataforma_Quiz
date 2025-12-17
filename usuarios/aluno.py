@@ -1,10 +1,8 @@
-'''from teste.teste import AplicarTesteTeste
-
-from teste.resultado import Resultado'''
 from .usuario import Usuario
 
 class Aluno(Usuario):
-    def __init__(self, nome, senha):
+    def __init__(self, nome, email, senha):
+        super().__init__(id, nome, email, senha)
         self.nome = nome
         self.senha = senha
 
@@ -13,8 +11,9 @@ class Aluno(Usuario):
         return
     
 
-    def visualizar_gabarito(self, teste):
-        return
+    def visualizar_gabarito(self, gabarito):
+        self.gabarito = gabarito
+
     
     
 
