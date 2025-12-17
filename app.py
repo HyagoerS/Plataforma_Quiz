@@ -1,10 +1,7 @@
 from flask import Flask, render_template, request 
 from estrutura.sistema import Sistema
-'''from usuarios.professor import Professor
-from usuarios.aluno import Aluno
-from conteudo.tema import Tema'''
-'''import dbpq
-dbpq.aluno'''
+
+
 
 
 app = Flask(__name__)
@@ -47,6 +44,7 @@ def admin_turmas():
 def admin_usuario():
     return render_template("admin_usuarios.html")
 
+
 #Professor
 @app.route('/professor')
 def area_professor():
@@ -68,6 +66,7 @@ def professor_resultado():
 @app.route('/professor/temas')
 def professor_temas():
     return render_template("professor_temas.html")
+
 
 #Aluno
 @app.route('/aluno')
