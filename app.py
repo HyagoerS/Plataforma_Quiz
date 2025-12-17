@@ -141,7 +141,6 @@ def aluno_quiz():
         # Lógica para determinar o status (aprovado/reprovado)
         quiz_aluno = "Aprovado" if pontuacao >= 70 else "Reprovado"
         
-        # Renderiza o template 'resultado.html' passando as variáveis
         return render_template('aluno_resultado.html', quiz_aluno=quiz_aluno)
 
 
