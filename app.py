@@ -13,7 +13,11 @@ app = Flask(__name__)
 login = "admin"
 senha = 123
 
-login
+loginAluno = "aluno"
+senhaAluno = 123
+
+loginProfessor = "professor"
+senhaProfessor = 123
 
 
 sistema = Sistema()
@@ -31,91 +35,99 @@ def home():
 
 #Usuarios 
 @app.route('/admin')
-def admin_dashboard():
-    return render_template("admin_dashboard.html")
+def area_admin():
+    return render_template("admin.html")
 
-@app.route('/admin')
+
+@app.route('/admin/turmas')
 def admin_turmas():
     return render_template("admin_turmas.html")
 
-@app.route('/admin')
+@app.route('/admin/usuarios')
 def admin_usuario():
-    return render_template("admin_usuario.html")
+    return render_template("admin_usuarios.html")
 
 #Professor
 @app.route('/professor')
-def professor_dashboard():
-    return render_template("professor_dashboard.html")
+def area_professor():
+    return render_template("professor.html")
 
-@app.route('/professor')
+
+@app.route('/professor/criar_questao')
 def professor_criar_questao():
     return render_template("professor_criar_questao.html")
 
-@app.route('/professor')
+@app.route('/professor/criar_teste')
 def professor_criar_teste():
     return render_template("professor_criar_teste.html")
 
-@app.route('/professor')
+@app.route('/professor/resultados')
 def professor_resultado():
     return render_template("professor_resultados.html")
 
-@app.route('/professor')
-def professor_():
+@app.route('/professor/temas')
+def professor_temas():
     return render_template("professor_temas.html")
 
 #Aluno
 @app.route('/aluno')
-def aluno_dashboard():
-    return render_template("aluno_.html")
+def area_aluno():
+    return render_template("aluno.html")
 
-@app.route('/aluno')
+
+@app.route('/aluno/resultado')
 def aluno_resultado():
-    return render_template("aluno_.html")
+    return render_template("aluno_resultado.html")
 
-@app.route('/aluno')
+@app.route('/aluno/teste')
 def aluno_teste():
-    return render_template("aluno_.html")
+    return render_template("aluno_teste.html")
 
 #login
 
 @app.route('/autenticar', methods=['POST'])
 def autenticar():
-    login = request.form.get("loginUsuario")
-    senha = request.form.get("senhaUsuario")
+    login_form = request.form.get("loginUsuario")
+    senha_form = request.form.get("senhaUsuario")
 
+    if login_form == login and str(senha_form) == str(senha):
+        return render_template("admin.html")
 
-    if login and senha: 
-        return render_template("admin_dashboard.html", mensagem=f"Bem-vindo(a)!")
+    elif login_form == loginAluno and str(senha_form) == str(senhaAluno):
+        return render_template("aluno.html")
+
+    elif login_form == loginProfessor and str(senha_form) == str(senhaProfessor):
+        return render_template("professor.html")
+
     else:
         return render_template("principal.html", mensagem="Login ou senha incorretos!")
 
-#Testes Quiz
-@app.route('montar_quiz')
-def montar_quiz():
-    return render_template("professor_criar_teste.html")
 
-@app.route("/aluno_teste")
-def teste_quiz():
-    return render_template("aluno_teste.html")
+
 
 #Cadastrar usuario
-@app.route('/admin_usuario.html', methods=['GET', 'POST'])
-def cadastrarusuario():
+@app.route('/admin/usuarios', methods=['GET', 'POST'])
+def cadastrar_usuario():
+    if request.method == "POST":
+        nome = request.form.get("nomeUsuario")
+        login = request.form.get("loginUsuario")
+        senha = request.form.get("senhaUsuario")
+        email = request.form.get("emailUsuario")
 
-    if request.method == "GET":
-        return render_template("admin_usuario.html")
-    nome = request.form.get("nomeUsuario")
-    senha = request.form.get("senhaUsuario")
-    login = request.form.get("loginUsuario")
-    email = request.form.get("emailUsuario")
+        # aqui depois você chama o POO
+        # sistema.cadastrar_usuario(...)
 
-    return render_template("principal.html", mensagem=" cadastrado com sucesso!")
+        return render_template("admin_usuarios.html", mensagem="Usuário cadastrado com sucesso!")
+
+    return render_template("admin_usuarios.html")
 
 #Remover usuario
 @app.route('/remover_usuario', methods=['GET', 'POST'])
 def remover_funcionario():
     if request.method == 'POST':
-        nome = request.form.get("nomeRemover")
+        email = request.form.get("emailRemover")
+
+
 
 #area de sistemas/admin
 @app.route("/admin_sistema")
