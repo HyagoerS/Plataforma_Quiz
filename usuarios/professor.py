@@ -19,10 +19,6 @@ class Professor:
         self.gerencia_temas.criar_tema(nome)
 
                      
-gestao.criar_tema("História")
-gestao.editar_tema("História", "História Geral")
-gestao.excluir_tema("Matemática")
-
 
 
 class Professor(Usuario):
