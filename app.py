@@ -105,7 +105,7 @@ def autenticar():
 
 
 #Cadastrar usuario
-#Fazer essa parte de cadastrar, ser apenas utilizado no projeto de Alex
+#essa parte de cadastrar, ser apenas utilizado no projeto de Alex
 @app.route('/admin/usuarios', methods=['GET', 'POST'])
 def cadastrar_usuario():
     if request.method == "POST":
@@ -128,10 +128,22 @@ def remover_funcionario():
     if request.method == 'POST':
         email = request.form.get("emailRemover")
 
+        return render_template("admin_usuarios.html")
+
 #fazer teste Quiz
 @app.route('/teste', methods=['GET', 'POST'])
 def aluno_quiz():
-    return
+   if request.method == 'POST':
+        # Captura os dados enviados pelo formulário (exemplo)
+
+        pontuacao = 80
+        
+        # Lógica para determinar o status (aprovado/reprovado)
+        quiz_aluno = "Aprovado" if pontuacao >= 70 else "Reprovado"
+        
+        # Renderiza o template 'resultado.html' passando as variáveis
+        return render_template('aluno_resultado.html', quiz_aluno=quiz_aluno)
+
 
 #area de sistemas/admin
 @app.route("/admin_sistema")

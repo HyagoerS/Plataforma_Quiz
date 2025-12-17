@@ -25,7 +25,6 @@ class Sistema:
         return None
 
 
-# RF: criar turma
 
     def criar_turma(self, nome, professor):
         turma = Turma(nome, professor)

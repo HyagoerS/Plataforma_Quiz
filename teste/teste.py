@@ -25,7 +25,7 @@ class AplicarTeste:
     def aplicar(self):
         for questao in self.teste.lista_questao:
             print(questao.questao)
-            self.re
+
 
     def associar_turmas(self):
         return
