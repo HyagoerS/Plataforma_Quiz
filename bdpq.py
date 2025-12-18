@@ -10,8 +10,11 @@ def alunos():
     nome TEXT NOT NULL,
     login TEXT NOT NULL,
     senha TEXT NOT NULL
-)
-    ''')
+    
+    )
+''')
+    conn.commit()
+    conn.close()
 
 
 def cadastrar(email, nome, login, senha):
@@ -26,7 +29,7 @@ def cadastrar(email, nome, login, senha):
 
 
 def login(login, senha):
-    conn = sqlite.connect('dbpq.sqlite3')
+    conn = sqlite.connect('bdpq.sqlite3')
     cursor = conn.cursor()
 
     cursor.execute("SELECT * FROM alunos WHERE login=? and senha=?", (login, senha) )
