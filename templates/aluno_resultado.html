@@ -9,21 +9,16 @@
     <h1>Resultado do seu Quiz</h1>
 
          <h3>Pontuação do se Teste no QuizRush</h3>
-    <p>Olá, <strong>{{ nome }}</strong>!</p>
+    <p>Aluno: <strong>{{ nome }}</strong></p>
     
-    <p>Sua pontuação final foi: <strong>{{ pontuacao }}</strong> pontos.</p>
-
-    <h2>Status:</h2>
-
-    {% if quiz_resultado == "Aprovado" %}
-        <p class="aprovado">{{ status }} 🎉</p>
-    {% else %}
-        <p class="reprovado">{{ status }} </p>
-    {% endif %}
+    <div style="padding: 20px; border: 1px solid #ccc;">
+        <h2>Sua nota final foi:</h2>
+        <h1 style="color: blue;">{{ nota }}</h1>
+    </div>
 
 
 <a href="{{ url_for('area_aluno') }}">Area Aluno</a><br>
 <a href="/">Voltar para página Principal</a><br>
-<a href="{{ url_for('/') }}">URL principal</a><br>
+
 </body>
 </html>

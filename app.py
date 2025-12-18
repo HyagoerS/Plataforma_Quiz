@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request 
 from estrutura.sistema import Sistema
+from teste.teste import meu_teste
 
 
 
@@ -15,7 +16,6 @@ senhaAluno = 123
 
 loginProfessor = "professor"
 senhaProfessor = 123
-
 
 sistema = Sistema()
 
@@ -78,9 +78,15 @@ def area_aluno():
 def aluno_resultado():
     return render_template("aluno_resultado.html")
 
-@app.route('/aluno/teste')
-def aluno_teste():
-    return render_template("aluno_teste.html")
+@app.route('/aluno/teste/games')
+def aluno_teste_jogo():
+    return render_template("aluno_teste_jogo.html")
+
+@app.route('/aluno/teste/geral')
+def aluno_teste_geral():
+    return render_template("aluno_teste_geral.html")
+
+
 
 #login
 
@@ -132,13 +138,30 @@ def remover_funcionario():
 
 
 #fazer teste Quiz
-'''@app.route('/teste_quiz', methods=['GET', 'POST'])
-def aluno_quiz():
+@app.route('/teste_quiz/jogo', methods=['POST'])
+def aluno_quiz_jogo():
+    # 1. Capturar o que o aluno marcou no HTML
+    resp1 = request.form.get('pergunta1')
+    resp2 = request.form.get('pergunta2')
+    resp3 = request.form.get('pergunta3')
+    resp4 = request.form.get('pergunta4')
+
+    respostas_do_aluno = [resp1, resp2, resp3, resp4]
+
+    # 2. Chamar a lógica do objeto que foi IMPORTADO
+    # Note que usamos 'meu_teste' (o objeto vindo do teste.py)
+    nota_final = meu_teste.calcular_resultado(respostas_do_aluno)
+
+    # 3. Mostrar o resultado
+    return render_template('aluno_resultado.html', nota=nota_final)
+
+'''@app.route('/teste_quiz/geral', methods=['GET', 'POST'])
+def aluno_quiz_geral():
    if request.method == 'POST':
-        # Captura os dados enviados pelo formulário (exemplo)
+   
 
         
-    return render_template('aluno_resultado.html')
+    return render_template('aluno_.html')
 
 @app.route('/teste_resultado', methods=['GET', 'POST'])
 def aluno_resultado():

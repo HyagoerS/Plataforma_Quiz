@@ -36,3 +36,19 @@ class AplicarTeste:
     def definir_tempo(self, minutos):
         return
 
+class Teste:
+    def __init__(self, titulo, gabarito_oficial): # Adicione gabarito_oficial aqui
+        self.titulo = titulo
+        self.gabarito = gabarito_oficial # Agora ele usa o que você passar
+
+    def calcular_resultado(self, respostas_aluno):
+        pontos = 0
+        for i in range(len(self.gabarito)):
+            # Compara a resposta do aluno com o gabarito
+            if respostas_aluno[i] == self.gabarito[i]:
+                pontos += 2.5
+        return pontos
+
+# Criamos o objeto aqui mesmo para ele ser importado depois
+gabarito_oficial = ["clair-obscur", "hollow-knight-silksong", "clair-obscur", "hollow-knight-silksong"]
+meu_teste = Teste("Quiz de Games 2025", gabarito_oficial)
