@@ -21,7 +21,7 @@ def cadastrar(email, nome, login, senha):
     conn = sqlite.connect('bdpq.sqlite3')
     cursor = conn.cursor()
 
-    cursor.execute("INSERT INTO alunos (email, nome, login, senha) VALUES (?, ?, ?, ?)", (email, nome, login, senha))
+    cursor.execute("INSERT INTO alunos (email, nome, login, senha) VALUES (?, ?, ?, ?)", (email, nome, login, senha,))
 
     conn.commit()
     conn.close()

@@ -109,8 +109,7 @@ def autenticar():
 
     elif login_form == "professor" and str(senha_form) == "123":
         return render_template("professor.html")
-    
-    if usuario:
+    elif usuario:
         return render_template("aluno.html")
     else:
         return render_template("principal.html", mensagem="Login ou senha incorretos!")
@@ -125,7 +124,7 @@ def autenticar():
 @app.route('/admin/usuarios', methods=['GET', 'POST'])
 def cadastrar_usuario():
 
-    if request.method == "POST":
+    if request.method == "GET":
         email = request.form.get("emailUsuario")
         nome = request.form.get("nomeUsuario")
         login = request.form.get("loginUsuario")
