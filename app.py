@@ -6,6 +6,7 @@ import bdpq
 bdpq.alunos()
 
 
+
 app = Flask(__name__)
 
 emails = []
@@ -98,15 +99,19 @@ def autenticar():
     login_form = request.form.get("loginUsuario")
     senha_form = request.form.get("senhaUsuario")
 
-    if login_form == login and str(senha_form) == str(senha):
+    usuario = bdpq.login(login_form, senha_form)
+
+    if login_form == "admin" and str(senha_form) == "123":
         return render_template("admin.html")
 
-    elif login_form == loginAluno and str(senha_form) == str(senhaAluno):
+    elif login_form == "aluno" and str(senha_form) == "123":
         return render_template("aluno.html")
 
-    elif login_form == loginProfessor and str(senha_form) == str(senhaProfessor):
+    elif login_form == "professor" and str(senha_form) == "123":
         return render_template("professor.html")
-
+    
+    if usuario:
+        return render_template("aluno.html")
     else:
         return render_template("principal.html", mensagem="Login ou senha incorretos!")
 
@@ -125,9 +130,9 @@ def cadastrar_usuario():
         senha = request.form.get("senhaUsuario")
 
 
-        sucesso = bdpq.cadastrar(email, nome, login, senha)
+        usuario = bdpq.cadastrar(email, nome, login, senha)
 
-        if sucesso:
+        if usuario:
             return render_template("admin_usuarios.html", mensagem="Usuário cadastrado com sucesso!")
         else:
             return render_template("admin_usuarios.html", mensagem="Erro: Email já cadastrado.")

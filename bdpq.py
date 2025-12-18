@@ -1,8 +1,8 @@
 import sqlite3 as sqlite
 
 
-def aluno():
-    conn = sqlite.connect('dbpq.sqlite3')
+def alunos():
+    conn = sqlite.connect('bdpq.sqlite3')
     cursor = conn.cursor()
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS alunos(
@@ -15,7 +15,7 @@ def aluno():
 
 
 def cadastrar(email, nome, login, senha):
-    conn = sqlite.connect('dbpq.sqlite3')
+    conn = sqlite.connect('bdpq.sqlite3')
     cursor = conn.cursor()
 
     cursor.execute("INSERT INTO alunos (email, nome, login, senha) VALUES (?, ?, ?, ?)", (email, nome, login, senha))
@@ -29,7 +29,7 @@ def login(login, senha):
     conn = sqlite.connect('dbpq.sqlite3')
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM aluno WHERE login=? and senha=?", (login, senha) )
+    cursor.execute("SELECT * FROM alunos WHERE login=? and senha=?", (login, senha) )
     dados = cursor.fetchall()
     conn.close()
     return len(dados) > 0
