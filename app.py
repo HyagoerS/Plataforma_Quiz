@@ -1,11 +1,14 @@
 from flask import Flask, render_template, request 
 from estrutura.sistema import Sistema
-from teste.teste import meu_teste
+from teste.teste import meu_teste, meu_teste2
 
-
+import bdpq
+bdpq.alunos()
 
 
 app = Flask(__name__)
+
+emails = []
 
 #senha padrão pre-definida
 login = "admin"
@@ -114,27 +117,43 @@ def autenticar():
 #essa parte de cadastrar, ser apenas utilizado no projeto de Alex
 @app.route('/admin/usuarios', methods=['GET', 'POST'])
 def cadastrar_usuario():
+
     if request.method == "POST":
+        email = request.form.get("emailUsuario")
         nome = request.form.get("nomeUsuario")
         login = request.form.get("loginUsuario")
         senha = request.form.get("senhaUsuario")
-        email = request.form.get("emailUsuario")
 
+
+        sucesso = bdpq.cadastrar(email, nome, login, senha)
+
+        if sucesso:
+            return render_template("admin_usuarios.html", mensagem="Usuário cadastrado com sucesso!")
+        else:
+            return render_template("admin_usuarios.html", mensagem="Erro: Email já cadastrado.")
         # aqui depois você chama o POO
         # sistema.cadastrar_usuario(...)
 
-        return render_template("admin_usuarios.html", mensagem="Usuário cadastrado com sucesso!")
+    return render_template("principal.html", mensagem="Usuário cadastrado com sucesso!")
 
-    return render_template("admin_usuarios.html")
+
 
 
 #Remover usuario
-@app.route('/remover_usuario', methods=['GET', 'POST'])
+@app.route('/admin/usuarios', methods=['GET', 'POST'])
 def remover_funcionario():
     if request.method == 'POST':
         email = request.form.get("emailRemover")
 
-        return render_template("admin_usuarios.html")
+        remover = bdpq.remover(email)
+
+        if remover:
+            if email in emails:
+                emails.remove(email)
+                return render_template("admin.html", mensagem=f"Usuário removido com sucesso!")
+        else:
+            return render_template("admin_usuarios.html",  mensagem=f"Usuário não foi encontrado!")
+    return render_template("admin_usuarios.html")
 
 
 #fazer teste Quiz
@@ -148,22 +167,29 @@ def aluno_quiz_jogo():
 
     respostas_do_aluno = [resp1, resp2, resp3, resp4]
 
-    # 2. Chamar a lógica do objeto que foi IMPORTADO
-    # Note que usamos 'meu_teste' (o objeto vindo do teste.py)
+
     nota_final = meu_teste.calcular_resultado(respostas_do_aluno)
 
-    # 3. Mostrar o resultado
+
     return render_template('aluno_resultado.html', nota=nota_final)
 
-'''@app.route('/teste_quiz/geral', methods=['GET', 'POST'])
+@app.route('/teste_quiz/geral', methods=['GET', 'POST'])
 def aluno_quiz_geral():
-   if request.method == 'POST':
-   
+    # 1. Capturar o que o aluno marcou no HTML
+    resp1 = request.form.get('pergunta1')
+    resp2 = request.form.get('pergunta2')
+    resp3 = request.form.get('pergunta3')
+    resp4 = request.form.get('pergunta4')
 
-        
-    return render_template('aluno_.html')
+    respostas_do_aluno = [resp1, resp2, resp3, resp4]
 
-@app.route('/teste_resultado', methods=['GET', 'POST'])
+
+    nota_final = meu_teste2.calcular_resultado(respostas_do_aluno)
+
+
+    return render_template('aluno_resultado.html', nota=nota_final)
+
+'''@app.route('/teste_resultado', methods=['GET', 'POST'])
 def aluno_resultado():
    if request.method == 'POST':
         # Captura os dados enviados pelo formulário (exemplo)

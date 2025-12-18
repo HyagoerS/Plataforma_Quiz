@@ -50,5 +50,7 @@ class Teste:
         return pontos
 
 # Criamos o objeto aqui mesmo para ele ser importado depois
-gabarito_oficial = ["clair-obscur", "hollow-knight-silksong", "clair-obscur", "hollow-knight-silksong"]
+gabarito_oficial = ["clair-obscur", "clair-obscur", "clair-obscur", "hollow-knight-silksong"]
+gabarito_oficial2 = ["", "", "", ""]
 meu_teste = Teste("Quiz de Games 2025", gabarito_oficial)
+meu_teste2 = Teste("Quiz de Perguntas Gerais", gabarito_oficial2)
