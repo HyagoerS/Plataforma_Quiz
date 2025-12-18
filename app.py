@@ -130,18 +130,27 @@ def remover_funcionario():
 
         return render_template("admin_usuarios.html")
 
+
 #fazer teste Quiz
-@app.route('/teste', methods=['GET', 'POST'])
+'''@app.route('/teste_quiz', methods=['GET', 'POST'])
 def aluno_quiz():
    if request.method == 'POST':
         # Captura os dados enviados pelo formulário (exemplo)
 
-        pontuacao = 80
+        
+    return render_template('aluno_resultado.html')
+
+@app.route('/teste_resultado', methods=['GET', 'POST'])
+def aluno_resultado():
+   if request.method == 'POST':
+        # Captura os dados enviados pelo formulário (exemplo)
+
+ 
         
         # Lógica para determinar o status (aprovado/reprovado)
-        quiz_aluno = "Aprovado" if pontuacao >= 70 else "Reprovado"
+
         
-        return render_template('aluno_resultado.html', quiz_aluno=quiz_aluno)
+    return render_template()'''
 
 
 #area de sistemas/admin
