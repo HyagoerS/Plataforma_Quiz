@@ -119,6 +119,8 @@ def autenticar():
 
 
 #Cadastrar usuario
+# aqui depois você chama o POO
+# sistema.cadastrar_usuario(...)
 #essa parte de cadastrar, ser apenas utilizado no projeto de Alex
 @app.route('/admin/usuarios', methods=['GET', 'POST'])
 def cadastrar_usuario():
@@ -136,8 +138,7 @@ def cadastrar_usuario():
             return render_template("admin_usuarios.html", mensagem="Usuário cadastrado com sucesso!")
         else:
             return render_template("admin_usuarios.html", mensagem="Erro: Email já cadastrado.")
-        # aqui depois você chama o POO
-        # sistema.cadastrar_usuario(...)
+
 
     return render_template("principal.html", mensagem="Usuário cadastrado com sucesso!")
 
