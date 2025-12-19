@@ -50,13 +50,13 @@ class Teste:
                 pontos += 2.5
         return pontos
 
-# --- CRIAÇÃO DOS OBJETOS ---
+
 
 # Gabarito de Jogos
 gab_jogos = ["clair-obscur", "clair-obscur", "clair-obscur", "hollow-knight-silksong"]
 # Gabarito Geral
 gab_geral = ["russia", "famosas", "vinci", "independencia"]
 
-# Criamos dois objetos diferentes usando o MESMO molde (Classe)
+
 meu_teste_jogos = Teste("Quiz de Games 2025", gab_jogos)
 meu_teste_geral = Teste("Quiz de Perguntas Gerais", gab_geral)

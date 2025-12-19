@@ -117,10 +117,10 @@ def autenticar():
 
 
 #Cadastrar usuario
-# aqui depois você chama o POO
+# aqui chamar o POO ou bdpq
 # sistema.cadastrar_usuario(...)
 #essa parte de cadastrar, ser apenas utilizado no projeto de Alex
-#E caso possível tentar definir por tipo. Pegando pelo email aluno e professor
+#Identificar por tipo, pegando pelo email aluno e professor
 @app.route('/admin/usuarios', methods=['GET', 'POST'])
 def cadastrar_usuario():
 
@@ -196,8 +196,8 @@ def aluno_quiz_geral():
 
 #area de sistemas/admin
 @app.route('/admin/painel')
-def admin_sistema(): # O nome que estava faltando no url_for!
-    # Aqui depois buscaremos os números reais do banco
+def admin_sistema(): 
+ 
     dados = {
         'total_usuarios': 10, 
         'total_turmas': 3,
