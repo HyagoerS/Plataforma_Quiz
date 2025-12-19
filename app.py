@@ -9,7 +9,6 @@ bdpq.alunos()
 
 app = Flask(__name__)
 
-emails = []
 
 #senha padrão pre-definida
 login = "admin"
@@ -145,20 +144,13 @@ def cadastrar_usuario():
 
 
 #Remover usuario
-@app.route('/admin/usuarios', methods=['GET', 'POST'])
+@app.route('/admin/usuarios/remover', methods=['POST']) # Mudei o caminho aqui
 def remover_funcionario():
-    if request.method == 'POST':
-        email = request.form.get("emailRemover")
-
-        remover = bdpq.remover(email)
-
-        if remover:
-            if email in emails:
-                emails.remove(email)
-                return render_template("admin.html", mensagem=f"Usuário removido com sucesso!")
-        else:
-            return render_template("admin_usuarios.html",  mensagem=f"Usuário não foi encontrado!")
-    return render_template("admin_usuarios.html")
+    email = request.form.get("emailRemover")
+    if bdpq.remover(email):
+        return render_template("admin_usuarios.html", mensagem="Removido com sucesso!")
+    else:
+        return render_template("admin_usuarios.html", mensagem="Usuário não encontrado!")
 
 
 #fazer teste Quiz
