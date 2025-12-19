@@ -10,7 +10,7 @@ bdpq.alunos()
 app = Flask(__name__)
 
 
-#senha padrão pre-definida
+#senha padrão pré-definidas
 login = "admin"
 senha = 123
 
@@ -23,17 +23,17 @@ senhaProfessor = 123
 sistema = Sistema()
 
 
-
+#Rota da Página Principal/Inicial
 @app.route('/')
 def home():
     login = request.form.get("loginUsuario")
     senha = request.form.get("senhaUsuario")
     return render_template("principal.html", mensagem="Login ou senha incorretos!")
 
- 
 
 
 #Usuarios 
+#Rotas do Administrado
 @app.route('/admin')
 def area_admin():
     return render_template("admin.html")
@@ -48,7 +48,7 @@ def admin_usuario():
     return render_template("admin_usuarios.html")
 
 
-#Professor
+#Rotas do Usuário Professor
 @app.route('/professor')
 def area_professor():
     return render_template("professor.html")
@@ -71,7 +71,7 @@ def professor_temas():
     return render_template("professor_temas.html")
 
 
-#Aluno
+# Rotas do Usuário Aluno
 @app.route('/aluno')
 def area_aluno():
     return render_template("aluno.html")
@@ -91,7 +91,7 @@ def aluno_teste_geral():
 
 
 
-#login
+#Login dos Usuários Aluno/Porfessor
 
 @app.route('/autenticar', methods=['POST'])
 def autenticar():
@@ -144,7 +144,7 @@ def cadastrar_usuario():
 
 
 
-#Remover usuario
+#Remover Usuários
 @app.route('/admin/usuarios/remover', methods=['POST']) # Mudei o caminho aqui
 def remover_funcionario():
     
@@ -157,7 +157,8 @@ def remover_funcionario():
         return render_template("admin_usuarios.html", mensagem="Usuário não encontrado!")
 
 
-#fazer teste Quiz
+# Teste Quiz Aluno
+#Quiz De Jogos
 @app.route('/teste_quiz/jogo', methods=['POST'])
 def aluno_quiz_jogo():
 
@@ -174,6 +175,7 @@ def aluno_quiz_jogo():
 
     return render_template('aluno_resultado.html', nota=nota_final)
 
+#Quiz de Conhecimento Gerias
 @app.route('/teste_quiz/geral', methods=['GET', 'POST'])
 def aluno_quiz_geral():
 
@@ -193,14 +195,15 @@ def aluno_quiz_geral():
 
 
 #area de sistemas/admin
-@app.route("/admin/painel")
-def admin_sistema():
-    #if request.method == 'POST':
-       # buscar_usuarios = bdpq.buscar(usuarios)
-
-       # if buscar_usuarios:
-
-    return render_template
+@app.route('/admin/painel')
+def admin_sistema(): # O nome que estava faltando no url_for!
+    # Aqui depois buscaremos os números reais do banco
+    dados = {
+        'total_usuarios': 10, 
+        'total_turmas': 3,
+        'total_testes': 5
+    }
+    return render_template("admin_painel.html", info=dados)
 
 
 
