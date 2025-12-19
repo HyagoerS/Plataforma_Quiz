@@ -5,7 +5,6 @@ class AplicarTeste:
     def __init__(self, id, titulo, questoes_com_pontuacao, id_turma, inicio, termino, tempo_max_minutos, id_professor):
         self._id = id
         self.titulo = titulo
-        self._questoes = questoes_com_pontuacao
         self.id_turma = id_turma
         self._data_inicio = inicio 
         self._data_termino = termino
@@ -37,20 +36,27 @@ class AplicarTeste:
         return
 
 class Teste:
-    def __init__(self, titulo, gabarito_oficial): # Adicione gabarito_oficial aqui
+    # O molde agora só precisa de um título e um gabarito
+    def __init__(self, titulo, gabarito): 
         self.titulo = titulo
-        self.gabarito = gabarito_oficial # Agora ele usa o que você passar
+        self.gabarito = gabarito
 
+    # Um único método que serve para QUALQUER teste
     def calcular_resultado(self, respostas_aluno):
         pontos = 0
         for i in range(len(self.gabarito)):
-            # Compara a resposta do aluno com o gabarito
+            # Compara com o gabarito DESTE objeto específico
             if respostas_aluno[i] == self.gabarito[i]:
                 pontos += 2.5
         return pontos
 
-# Criamos o objeto aqui mesmo para ele ser importado depois
-gabarito_oficial = ["clair-obscur", "clair-obscur", "clair-obscur", "hollow-knight-silksong"]
-gabarito_oficial2 = ["", "", "", ""]
-meu_teste = Teste("Quiz de Games 2025", gabarito_oficial)
-meu_teste2 = Teste("Quiz de Perguntas Gerais", gabarito_oficial2)
+# --- CRIAÇÃO DOS OBJETOS ---
+
+# Gabarito de Jogos
+gab_jogos = ["clair-obscur", "clair-obscur", "clair-obscur", "hollow-knight-silksong"]
+# Gabarito Geral
+gab_geral = ["russia", "famosas", "vinci", "independencia"]
+
+# Criamos dois objetos diferentes usando o MESMO molde (Classe)
+meu_teste_jogos = Teste("Quiz de Games 2025", gab_jogos)
+meu_teste_geral = Teste("Quiz de Perguntas Gerais", gab_geral)

@@ -8,90 +8,87 @@
 <body>
     <h1>QuizRush Teste seu Conheciomento</h1>
 
-<fieldset>
-    <form action="teste_quiz/geral">
-            <legend>Qual País?</legend>
-            
-            <label for="q1a">
-                <input type="radio" id="q1a" name="pergunta1" value=""> 
-            </label><br>
-            
-            <label for="q1b">
-                <input type="radio" id="q1b" name="pergunta1" value="">
-            </label><br>
-            
-            <label for="q1c">
-                <input type="radio" id="q1c" name="pergunta1" value=""> 
-            </label><br>
+<form action="/teste_quiz/geral" method="post">
+    <fieldset>
+        <legend>Qual é o maior país do mundo em extensão territorial?</legend>
+        
+        <label for="q1a">
+            <input type="radio" id="q1a" name="pergunta1" value="russia"> Rússia
+        </label><br>
+        
+        <label for="q1b">
+            <input type="radio" id="q1b" name="pergunta1" value="canada"> Canadá
+        </label><br>
+        
+        <label for="q1c">
+            <input type="radio" id="q1c" name="pergunta1" value="china"> China
+        </label><br>
 
-            <label for="q1d">
-                <input type="radio" id="q1d" name="pergunta1" value=""> 
-            </label>
+        <label for="q1d">
+            <input type="radio" id="q1d" name="pergunta1" value="brasil"> Brasil
+        </label>
+    </fieldset><br>
 
-        </fieldset>
+    <fieldset>
+        <legend>Quais são os nomes das três Pirâmides de Gizé (as mais famosas)?</legend>
+        
+        <label for="q2a">
+            <input type="radio" id="q2a" name="pergunta2" value="egipcias"> Cairo, Gizé e Alexandria
+        </label><br>
+        
+        <label for="q2b">
+            <input type="radio" id="q2b" name="pergunta2" value="famosas"> Quéops, Quéfren e Miquerinos
+        </label><br>
+        
+        <label for="q2c">
+            <input type="radio" id="q2c" name="pergunta2" value="mexico"> Sol, Lua e Serpente
+        </label><br>
 
+        <label for="q2d">
+            <input type="radio" id="q2d" name="pergunta2" value="erradas"> Tutancâmon, Ramsés e Nefertiti
+        </label>
+    </fieldset><br>
 
-        <fieldset>
-            <legend>jhkjhkjkhk?</legend>
-            
-            <label for="q2a">
-                <input type="radio" id="q2a" name="pergunta2" value="">
-            </label><br>
-            
-            <label for="q2b">
-                <input type="radio" id="q2b" name="pergunta2" value="">
-            </label><br>
-            
-            <label for="q2c">
-                <input type="radio" id="q2c" name="pergunta2" value="">
-            </label><br>
+    <fieldset>
+        <legend>Quem pintou o famoso quadro "Mona Lisa"?</legend>
+        
+        <label for="q3a">
+            <input type="radio" id="q3a" name="pergunta3" value="vinci"> Leonardo da Vinci
+        </label><br>
+        
+        <label for="q3b">
+            <input type="radio" id="q3b" name="pergunta3" value="van-gogh"> Vincent van Gogh
+        </label><br>
+        
+        <label for="q3c">
+            <input type="radio" id="q3c" name="pergunta3" value="picasso"> Pablo Picasso
+        </label><br>
 
-            <label for="q2d">
-                <input type="radio" id="q2d" name="pergunta2" value="">
-            </label>
-        </fieldset><br>
+        <label for="q3d">
+            <input type="radio" id="q3d" name="pergunta3" value="michelangelo"> Michelangelo
+        </label>
+    </fieldset><br>
 
-        <fieldset>
-            <legend>asdsadsadsa?</legend>
-            
-            <label for="q3a">
-                <input type="radio" id="q3a" name="pergunta3" value=""> 
-            </label><br>
-            
-            <label for="q3b">
-                <input type="radio" id="q3b" name="pergunta3" value=""> 
-            </label><br>
-            
-            <label for="q3c">
-                <input type="radio" id="q3c" name="pergunta3" value=""> 
-            </label><br>
+    <fieldset>
+        <legend>O que aconteceu no Dia 7 de Setembro de 1822 no Brasil?</legend>
+        <label for="q4a">
+            <input type="radio" id="q4a" name="pergunta4" value="descobrimento"> O Descobrimento do Brasil
+        </label><br>
+        
+        <label for="q4b">
+            <input type="radio" id="q4b" name="pergunta4" value="independencia"> A Proclamação da Independência
+        </label><br>
+        
+        <label for="q4c">
+            <input type="radio" id="q4c" name="pergunta4" value="republica"> A Proclamação da República
+        </label><br>
 
-            <label for="q3d">
-                <input type="radio" id="q3d" name="pergunta3" value=""> 
-            </label>
-        </fieldset><br>
+        <label for="q4d">
+            <input type="radio" id="q4d" name="pergunta4" value="abolicao"> A Abolição da Escravidão
+        </label>
+    </fieldset><br>
 
-        <fieldset>
-            <legend>O que aconteceu no Dia 7 de Setembro de 1832?</legend>
-            
-            <label for="q4a">
-                <input type="radio" id="q4a" name="pergunta4" value="">
-            </label><br>
-            
-            <label for="q4b">
-                <input type="radio" id="q4b" name="pergunta4" value="">
-            </label><br>
-            
-            <label for="q4c">
-                <input type="radio" id="q4c" name="pergunta4" value="">
-            </label><br>
-
-            <label for="q4d">
-                <input type="radio" id="q2d" name="pergunta4" value=""> 
-            </label>
-        </fieldset><br>
-
-        <button type="submit">Enviar Respostas</button>
-    </form>
+    <button type="submit">Enviar Respostas</button>
+</form>
 </body>
 </html>

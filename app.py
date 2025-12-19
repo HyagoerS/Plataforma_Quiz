@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request 
 from estrutura.sistema import Sistema
-from teste.teste import meu_teste, meu_teste2
+from teste.teste import meu_teste_jogos, meu_teste_geral
 
 import bdpq
 bdpq.alunos()
@@ -120,6 +120,7 @@ def autenticar():
 # aqui depois você chama o POO
 # sistema.cadastrar_usuario(...)
 #essa parte de cadastrar, ser apenas utilizado no projeto de Alex
+#E caso possível tentar definir por tipo. Pegando pelo email aluno e professor
 @app.route('/admin/usuarios', methods=['GET', 'POST'])
 def cadastrar_usuario():
 
@@ -133,12 +134,12 @@ def cadastrar_usuario():
         usuario = bdpq.cadastrar(email, nome, login, senha)
 
         if usuario:
-            return render_template("admin_usuarios.html", mensagem="Usuário cadastrado com sucesso!")
+            return render_template("admin_usuarios.html", "Usuário cadastrado com sucesso!")
         else:
-            return render_template("admin_usuarios.html", mensagem="Erro: Email já cadastrado.")
+            return render_template("admin_usuarios.html", "Erro: Email já cadastrado.")
 
 
-    return render_template("principal.html", mensagem="Usuário cadastrado com sucesso!")
+    return render_template("principal.html", "Usuário cadastrado com sucesso!")
 
 
 
@@ -146,7 +147,10 @@ def cadastrar_usuario():
 #Remover usuario
 @app.route('/admin/usuarios/remover', methods=['POST']) # Mudei o caminho aqui
 def remover_funcionario():
+    
     email = request.form.get("emailRemover")
+    
+    
     if bdpq.remover(email):
         return render_template("admin_usuarios.html", mensagem="Removido com sucesso!")
     else:
@@ -156,7 +160,7 @@ def remover_funcionario():
 #fazer teste Quiz
 @app.route('/teste_quiz/jogo', methods=['POST'])
 def aluno_quiz_jogo():
-    # 1. Capturar o que o aluno marcou no HTML
+
     resp1 = request.form.get('pergunta1')
     resp2 = request.form.get('pergunta2')
     resp3 = request.form.get('pergunta3')
@@ -165,14 +169,14 @@ def aluno_quiz_jogo():
     respostas_do_aluno = [resp1, resp2, resp3, resp4]
 
 
-    nota_final = meu_teste.calcular_resultado(respostas_do_aluno)
+    nota_final = meu_teste_jogos.calcular_resultado(respostas_do_aluno)
 
 
     return render_template('aluno_resultado.html', nota=nota_final)
 
 @app.route('/teste_quiz/geral', methods=['GET', 'POST'])
 def aluno_quiz_geral():
-    # 1. Capturar o que o aluno marcou no HTML
+
     resp1 = request.form.get('pergunta1')
     resp2 = request.form.get('pergunta2')
     resp3 = request.form.get('pergunta3')
@@ -181,28 +185,24 @@ def aluno_quiz_geral():
     respostas_do_aluno = [resp1, resp2, resp3, resp4]
 
 
-    nota_final = meu_teste2.calcular_resultado(respostas_do_aluno)
+    nota_final = meu_teste_geral.calcular_resultado(respostas_do_aluno)
 
 
     return render_template('aluno_resultado.html', nota=nota_final)
 
-'''@app.route('/teste_resultado', methods=['GET', 'POST'])
-def aluno_resultado():
-   if request.method == 'POST':
-        # Captura os dados enviados pelo formulário (exemplo)
-
- 
-        
-        # Lógica para determinar o status (aprovado/reprovado)
-
-        
-    return render_template()'''
 
 
 #area de sistemas/admin
-@app.route("/admin_sistema")
-def sistema_adimin():
+@app.route("/admin/painel")
+def admin_sistema():
+    #if request.method == 'POST':
+       # buscar_usuarios = bdpq.buscar(usuarios)
+
+       # if buscar_usuarios:
+
     return render_template
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
