@@ -16,7 +16,7 @@ class Criacao_Questoes:
         pass
 
     def criar_pergunta(self, questao):
-        pergunta = input("Modificiar para marcar e não escrever: ")
+        pergunta = input("Seleciona a Questão: ")
         return questao(pergunta)
 
     def inserir_opcoes(self, questao):

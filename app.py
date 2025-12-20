@@ -134,18 +134,18 @@ def cadastrar_usuario():
         usuario = bdpq.cadastrar(email, nome, login, senha)
 
         if usuario:
-            return render_template("admin_usuarios.html", "Usuário cadastrado com sucesso!")
+            return render_template("admin_usuarios.html", mensagem="Usuário cadastrado com sucesso!")
         else:
-            return render_template("admin_usuarios.html", "Erro: Email já cadastrado.")
+            return render_template("admin_usuarios.html", mensagem="Erro: Email já cadastrado.")
 
 
-    return render_template("principal.html", "Usuário cadastrado com sucesso!")
+    return render_template("principal.html", mensagem="Usuário cadastrado com sucesso!")
 
 
 
 
 #Remover Usuários
-@app.route('/admin/usuarios/remover', methods=['POST']) # Mudei o caminho aqui
+@app.route('/admin/usuarios/remover', methods=['POST'])
 def remover_funcionario():
     
     email = request.form.get("emailRemover")

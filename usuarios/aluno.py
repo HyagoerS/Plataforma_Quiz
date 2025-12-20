@@ -18,8 +18,8 @@ class Aluno(Usuario):
     
 
 class AlunoLogin:
-    def __init__(self, login, senha, testes_disponiveis):
-        self.login = login
+    def __init__(self, email, senha, testes_disponiveis):
+        self.email = email
         self.senha = senha
         self.testes_disponiveis = testes_disponiveis
 

@@ -16,7 +16,33 @@ def alunos():
     conn.commit()
     conn.close()
 
+def turmas():
+    conn = sqlite.connect('bdpq.sqlite3')
+    cursor = conn.cursor()
+    cursor.execute('''
+    CREATE TABLE IF NOT EXIST turmas(
+    id INTERGER PRIMARY KEY,
+    nome TEXT
+    )
+''')
+    conn.commit()
+    conn.close()
 
+def temas():
+    conn = sqlite.connect('bdpq.sqlite3')
+    cursor = conn.cursor()
+    cursor.execute('''
+    CREATE TABLE IF NOT EXIST temas(
+    id INTERGER PRIMARY KEY,
+    titulo TEXT,
+    descricao TEXT
+    )
+''')
+    conn.commit()
+    conn.close()
+
+
+#Lógicas relacionadas a Usuários
 def cadastrar(email, nome, login, senha):
     conn = sqlite.connect('bdpq.sqlite3')
     cursor = conn.cursor()
