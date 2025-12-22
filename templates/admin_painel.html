@@ -6,6 +6,24 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Área de Visualização Administradora</h1>
+
+    <h1>Estatísticas do Sistema</h1>
+<div>
+        <div>
+            <h3>Usuários</h3>
+            <p>{{ info.usuarios }}</p>
+        </div>
+
+        <div>
+            <h3>Turmas</h3>
+            <p>{{ info.turmas }}</p>
+        </div>
+
+        <div>
+            <h3>Testes Criados</h3>
+            <p>{{ info.testes }}</p>
+        </div>
+    </div>
+    <a href="{{ url_for('admin_turmas') }}">Voltar</a>
 </body>
 </html>

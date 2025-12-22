@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request 
+from flask import Flask, render_template, request, redirect, url_for, session
 from estrutura.sistema import Sistema
 from teste.teste import meu_teste_jogos, meu_teste_geral
 
@@ -121,25 +121,15 @@ def autenticar():
 # sistema.cadastrar_usuario(...)
 #essa parte de cadastrar, ser apenas utilizado no projeto de Alex
 #Identificar por tipo, pegando pelo email aluno e professor
-@app.route('/admin/usuarios', methods=['GET', 'POST'])
-def cadastrar_usuario():
-
-    if request.method == "GET":
-        email = request.form.get("emailUsuario")
-        nome = request.form.get("nomeUsuario")
-        login = request.form.get("loginUsuario")
-        senha = request.form.get("senhaUsuario")
-
-
-        usuario = bdpq.cadastrar(email, nome, login, senha)
-
-        if usuario:
-            return render_template("admin_usuarios.html", mensagem="Usuário cadastrado com sucesso!")
-        else:
-            return render_template("admin_usuarios.html", mensagem="Erro: Email já cadastrado.")
-
-
-    return render_template("principal.html", mensagem="Usuário cadastrado com sucesso!")
+@app.route('/cadastrar', methods=['POST'])
+def cadastrar():
+    nome = request.form.get('nome')
+    email = request.form.get('email')
+    senha = request.form.get('senha')
+    perfil = request.form.get('perfil') # Pegando do formulário
+    
+    # Lógica para salvar no banco (bdpq.inserir_usuario(nome, email, senha, perfil))
+    return redirect(url_for('admin_usuario'))
 
 
 
@@ -192,18 +182,42 @@ def aluno_quiz_geral():
 
     return render_template('aluno_resultado.html', nota=nota_final)
 
+#Rota quizz do professor
+@app.route('/professor/criar_questao', methods=['GET', 'POST'])
+def criar_questao():
+    if request.method == 'POST':
+        # Pega os dados do formulário
+        enunciado = request.form.get('enunciado')
+        alt_a = request.form.get('alt_a')
+        alt_b = request.form.get('alt_b')
+        alt_c = request.form.get('alt_c')
+        alt_d = request.form.get('alt_d')
+        correta = request.form.get('correta')
+
+        # Salva no banco
+        bdpq.salvar_questao(enunciado, alt_a, alt_b, alt_c, alt_d, correta)
+        
+        return render_template("professor.html", mensagem="Questão criada com sucesso!")
+
+    return render_template("criar_questao.html")
 
 
 #area de sistemas/admin
 @app.route('/admin/painel')
-def admin_sistema(): 
- 
-    dados = {
-        'total_usuarios': 10, 
-        'total_turmas': 3,
-        'total_testes': 5
-    }
-    return render_template("admin_painel.html", info=dados)
+def admin_sistema():
+    # 1. Segurança (Descomente quando tiver o login funcionando com session)
+    # if session.get('perfil') != 'admin':
+    #     return redirect(url_for('login'))
+    
+    # 2. Busca dados REAIS do banco (RF13)
+    try:
+        contagem = bdpq.contar_registros()
+    except:
+        # 3. Fallback: Se o banco falhar, mostra dados de teste para não quebrar o site
+        contagem = {'usuarios': 0, 'turmas': 0, 'testes': 0}
+        
+    # 4. Envia tudo para o HTML
+    return render_template("admin_painel.html", info=contagem)
 
 
 
