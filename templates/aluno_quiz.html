@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Online - Aluno</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>📝 Teste Online</h1>
+
+    {% if lista_questoes %}
+        <form action="/aluno/corrigir_teste" method="POST">
+            
+            {% for q in lista_questoes %}
+            <div class="questao-card" style="margin-bottom: 30px; text-align: left;">
+                
+                <h3 class="enunciado-estilo">{{ loop.index }}. {{ q[1] }}</h3>
+
+                <label class="opcao-bloco">
+                    <input type="radio" name="resposta_{{ q[0] }}" value="A" required> 
+                    <strong>A)</strong> {{ q[2] }}
+                </label>
+
+                <label class="opcao-bloco">
+                    <input type="radio" name="resposta_{{ q[0] }}" value="B"> 
+                    <strong>B)</strong> {{ q[3] }}
+                </label>
+
+                <label class="opcao-bloco">
+                    <input type="radio" name="resposta_{{ q[0] }}" value="C"> 
+                    <strong>C)</strong> {{ q[4] }}
+                </label>
+
+                <label class="opcao-bloco">
+                    <input type="radio" name="resposta_{{ q[0] }}" value="D"> 
+                    <strong>D)</strong> {{ q[5] }}
+                </label>
+            </div>
+            <hr>
+            {% endfor %}
+
+            <button type="submit" class="btn-verde">Finalizar Teste ✅</button>
+        </form>
+
+    {% else %}
+        <div class="alerta">
+            <p>Ainda não existem questões cadastradas pelo professor.</p>
+            <a href="/" class="btn-vermelho">Voltar</a>
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>

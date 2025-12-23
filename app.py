@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from estrutura.sistema import Sistema
 from conteudo.multipla_escolha import QuestaoMultiplaEscolha
-from teste.teste import meu_teste_jogos, meu_teste_geral
+
 
 import bdpq
 bdpq.alunos()
@@ -84,17 +84,10 @@ def area_aluno():
 def aluno_resultado():
     return render_template("aluno_resultado.html")
 
-@app.route('/aluno/teste/games') # Verifique se a URL está assim mesmo
-def aluno_quiz_jogo(): # Ou o nome que você deu
+@app.route('/aluno/quiz') # Verifique se a URL está assim mesmo
+def aluno_quiz(): # Ou o nome que você deu
     questoes = bdpq.buscar_todas_questoes()
-    print("--- DEBUG TESTE ---")
-    print(f"Questões no banco: {questoes}")
     return render_template("aluno_teste_jogo.html", lista_questoes=questoes)
-
-@app.route('/aluno/teste/geral')
-def aluno_teste_geral():
-    return render_template("aluno_teste_geral.html")
-
 
 
 #Login dos Usuários Aluno/Porfessor
@@ -135,7 +128,7 @@ def cadastrar():
     perfil = request.form.get('perfil') # Pegando do formulário
     
     # Lógica para salvar no banco (bdpq.inserir_usuario(nome, email, senha, perfil))
-    return redirect(url_for('admin_usuario'))
+    return render_template('admin_usuarios', mesagem="Sucesso")
 
 
 
