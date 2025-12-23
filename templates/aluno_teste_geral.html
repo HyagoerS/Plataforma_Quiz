@@ -8,7 +8,7 @@
 <body>
     <h1>Teste de Múltipla Escolha</h1>
 
-    <form action="/aluno/corrigir_teste" method="POST">
+    <form action="/aluno/resultado" method="POST">
         {% for q in lista_questoes %}
         <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
             <h3>Questão {{ loop.index }}: {{ q[1] }}</h3>
