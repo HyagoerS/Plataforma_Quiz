@@ -8,21 +8,32 @@
 <body>
     <h1>Teste de Múltipla Escolha</h1>
 
-    <form action="/aluno/resultado" method="POST">
-        {% for q in lista_questoes %}
-        <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 20px;">
-            <h3>Questão {{ loop.index }}: {{ q[1] }}</h3>
-            
-            <input type="radio" name="resposta_{{ q[0] }}" value="A" required> A) {{ q[2] }}<br>
-            <input type="radio" name="resposta_{{ q[0] }}" value="B"> B) {{ q[3] }}<br>
-            <input type="radio" name="resposta_{{ q[0] }}" value="C"> C) {{ q[4] }}<br>
-            <input type="radio" name="resposta_{{ q[0] }}" value="D"> D) {{ q[5] }}<br>
-        </div>
-        {% endfor %}
+<div class="container">
+        <h1>Hora do Quiz!</h1>
 
-        <button type="submit" style="background-color: green; color: white; padding: 10px 20px;">
-            Finalizar e Ver Nota
-        </button>
-    </form>
+        <form action="/aluno/corrigir_teste" method="POST">
+            {% for q in lista_questoes %}
+            <div style="text-align: left; margin-bottom: 30px;">
+                <h3>{{ loop.index }}. {{ q[1] }}</h3>
+                
+                <label class="opcao-bloco">
+                    <input type="radio" name="resposta_{{ q[0] }}" value="A" required> A) {{ q[2] }}
+                </label>
+                <label class="opcao-bloco">
+                    <input type="radio" name="resposta_{{ q[0] }}" value="B"> B) {{ q[3] }}
+                </label>
+                <label class="opcao-bloco">
+                    <input type="radio" name="resposta_{{ q[0] }}" value="C"> C) {{ q[4] }}
+                </label>
+                <label class="opcao-bloco">
+                    <input type="radio" name="resposta_{{ q[0] }}" value="D"> D) {{ q[5] }}
+                </label>
+            </div>
+            <hr>
+            {% endfor %}
+
+            <button type="submit">Finalizar e Ver Nota</button>
+        </form>
+    </div>
 </body>
 </html>

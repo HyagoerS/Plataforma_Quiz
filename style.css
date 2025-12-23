@@ -1,0 +1,171 @@
+/* --- static/style.css --- */
+
+/* RESET BÁSICO - Para que tudo fique alinhado */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* CONFIGURAÇÕES GERAIS */
+body {
+    font-family: 'Arial', sans-serif; /* Fonte simples e fácil de ler */
+    background-color: #f0f2f5; /* Um cinza bem clarinho para o fundo não ser branco puro */
+    color: #333; /* Texto cinza escuro, melhor que preto total */
+    line-height: 1.6;
+    padding: 20px;
+    text-align: center; /* Centraliza tudo como no Kahoot */
+}
+
+/* O CONTAINER PRINCIPAL - Mantém o conteúdo organizado no meio da tela */
+.container, form, table {
+    max-width: 800px;
+    margin: 0 auto; /* Centraliza na horizontal */
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px; /* Bordas arredondadas estilo cartão */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* Uma sombra suave para dar profundidade */
+    margin-bottom: 20px;
+}
+
+/* TÍTULOS */
+h1 {
+    color: #333;
+    margin-bottom: 25px;
+    font-weight: bold;
+    font-size: 2.5em;
+}
+
+h2, h3 {
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* --- ESTILO DOS FORMULÁRIOS (Inputs grandes e fáceis de clicar) --- */
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    text-align: left;
+    color: #555;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea,
+select {
+    width: 100%;
+    padding: 15px; /* Espaçamento interno grande */
+    margin-bottom: 20px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #fafafa;
+}
+
+/* Foco nos inputs (quando clica neles) */
+input:focus, textarea:focus, select:focus {
+    border-color: #28a745; /* Fica verde quando selecionado */
+    outline: none;
+}
+
+/* --- BOTÕES ESTILO KAHOOT (Grandes e Coloridos) --- */
+
+button, .btn {
+    display: inline-block;
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    text-decoration: none; /* Para links que parecem botões */
+    margin-bottom: 10px;
+}
+
+/* Botão Verde (Ação Principal - Salvar, Enviar) */
+button[type="submit"], .btn-verde {
+    background-color: #28a745; /* Verde vibrante */
+    box-shadow: 0 4px 0 #218838; /* Sombra sólida embaixo para efeito 3D */
+}
+
+button[type="submit"]:hover, .btn-verde:hover {
+    background-color: #218838;
+    transform: translateY(2px); /* Efeito de "apertar" o botão */
+    box-shadow: 0 2px 0 #218838;
+}
+
+/* Botão Vermelho (Perigo, Voltar ou Cancelar) */
+.btn-vermelho {
+    background-color: #dc3545; /* Vermelho vibrante */
+    box-shadow: 0 4px 0 #c82333;
+}
+
+.btn-vermelho:hover {
+    background-color: #c82333;
+}
+
+/* LINKS NORMAIS (Como o "Voltar") */
+a {
+    color: #28a745;
+    text-decoration: none;
+    font-weight: bold;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+
+/* --- ESTILO ESPECÍFICO PARA O TESTE DO ALUNO --- */
+
+/* Faz as opções de rádio parecerem blocos clicáveis */
+input[type="radio"] {
+   /* Esconde o botão padrão pequeno */
+   margin-right: 10px;
+   transform: scale(1.5); /* Aumenta o tamanho da bolinha */
+}
+
+.opcao-bloco {
+    display: block;
+    text-align: left;
+    background-color: #f8f9fa;
+    border: 2px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.opcao-bloco:hover {
+    background-color: #e9ecef;
+    border-color: #28a745;
+}
+
+/* --- ESTILO DAS TABELAS (Para a página de resultados) --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow: hidden; /* Para as bordas arredondadas funcionarem */
+}
+
+th {
+    background-color: #28a745; /* Cabeçalho Verde */
+    color: white;
+    padding: 15px;
+    text-align: left;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+tr:hover {
+    background-color: #f1f1f1; /* Efeito ao passar o mouse na linha */
+}

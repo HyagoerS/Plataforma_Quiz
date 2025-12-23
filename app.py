@@ -157,25 +157,36 @@ def exibir_teste():
 
 @app.route('/aluno/corrigir_teste', methods=['POST'])
 def corrigir_teste():
+    # --- PARTE 1: CÁLCULO DA NOTA (Lógica que você já tinha) ---
     questoes_banco = bdpq.buscar_todas_questoes()
     nota_final = 0
     total_possivel = 0
 
     for q in questoes_banco:
         id_q = q[0]
+        # Pega a resposta que o aluno marcou no HTML
         resposta_aluno = request.form.get(f'resposta_{id_q}')
         
-        # 1. Instanciamos a SUA classe POO para cada questão
-        # id, enunciado, pontuacao, opcoes, correta
+        # Instancia sua classe POO para usar o método de correção
+        # Ordem: id, enunciado, pontuacao, lista_opcoes, correta
         objeto_questao = QuestaoMultiplaEscolha(q[0], q[1], 2.5, [q[2],q[3],q[4],q[5]], q[6])
         
-        # 2. Usamos o seu método corrigir() que você criou!
-        pontos_recebidos = objeto_questao.corrigir(resposta_aluno)
-        
-        nota_final += pontos_recebidos
+        # Soma os pontos se o aluno acertou
+        nota_final += objeto_questao.corrigir(resposta_aluno)
         total_possivel += objeto_questao.pontuacao
 
-    return render_template("resultado_aluno.html", nota=nota_final, total=total_possivel)
+    # --- PARTE 2: SALVAMENTO (RF5 / RF10) ---
+    # Pegamos o email de quem está logado na sessão (RF7)
+    email_do_aluno = session.get('usuario_logado') 
+    
+    # Se existir um usuário logado, gravamos a nota no banco de dados
+    if email_do_aluno:
+        bdpq.salvar_resultado(email_do_aluno, nota_final)
+    
+    # --- PARTE 3: EXIBIÇÃO ---
+    # Retorna a página final com a pontuação
+    return render_template("aluno_resultado.html", nota=nota_final, total=total_possivel)
+
 #Quiz De Jogos
 @app.route('/teste_quiz/jogo', methods=['POST'])
 def aluno_quiz_jogo():
@@ -260,6 +271,17 @@ def salvar_pergunta():
     bdpq.salvar_questao(nova_q.enunciado, ..., nova_q._QuestaoMultiplaEscolha__resposta_correta)
     
     return "Salvo com sucesso usando POO!"
+
+@app.route('/professor/resultados')
+def visualizar_resultados():
+    # Segurança: apenas professores podem ver as notas
+    if session.get('perfil') != 'professor':
+        return "Acesso negado!", 403
+
+    # Busca a lista de notas no banco de dados
+    lista_notas = bdpq.buscar_todos_resultados()
+    
+    return render_template("professor_resultados.html", resultados=lista_notas)
 
 
 #area de sistemas/admin

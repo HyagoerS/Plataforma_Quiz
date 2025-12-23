@@ -1,5 +1,5 @@
 import sqlite3 as sqlite
-
+import datetime
 
 def alunos():
     conn = sqlite.connect('bdpq.sqlite3')
@@ -140,3 +140,42 @@ def salvar_questao(enunciado, a, b, c, d, correta):
     ''', (enunciado, a, b, c, d, correta))
     conn.commit()
     conn.close()
+
+
+#lógica de resultado do quizz aluno
+def criar_tabela_resultados():
+    conn = sqlite3.connect('bdpq.sqlite3')
+    cursor = conn.cursor()
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS resultados (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            aluno_email TEXT NOT NULL,
+            nota REAL NOT NULL,
+            data_hora TEXT NOT NULL
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+def salvar_resultado(email, nota):
+    conn = sqlite3.connect('bdpq.sqlite3')
+    cursor = conn.cursor()
+    # Pega a data e hora atual do sistema
+    agora = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    
+    cursor.execute('''
+        INSERT INTO resultados (aluno_email, nota, data_hora)
+        VALUES (?, ?, ?)
+    ''', (email, nota, agora))
+    
+    conn.commit()
+    conn.close()
+
+def buscar_todos_resultados():
+    conn = sqlite3.connect('bdpq.sqlite3')
+    cursor = conn.cursor()
+    # Ordenamos pelos resultados mais recentes (DESC)
+    cursor.execute('SELECT aluno_email, nota, data_hora FROM resultados ORDER BY id DESC')
+    resultados = cursor.fetchall()
+    conn.close()
+    return resultados
