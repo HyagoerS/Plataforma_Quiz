@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from estrutura.sistema import Sistema
+from conteudo.multipla_escolha import QuestaoMultiplaEscolha
 from teste.teste import meu_teste_jogos, meu_teste_geral
 
 import bdpq
@@ -148,6 +149,33 @@ def remover_funcionario():
 
 
 # Teste Quiz Aluno
+@app.route('/aluno/teste')
+def exibir_teste():
+    # Busca as questões no banco e manda para o HTML
+    dados_banco = bdpq.buscar_todas_questoes()
+    return render_template("realizar_teste.html", lista_questoes=dados_banco)
+
+@app.route('/aluno/corrigir_teste', methods=['POST'])
+def corrigir_teste():
+    questoes_banco = bdpq.buscar_todas_questoes()
+    nota_final = 0
+    total_possivel = 0
+
+    for q in questoes_banco:
+        id_q = q[0]
+        resposta_aluno = request.form.get(f'resposta_{id_q}')
+        
+        # 1. Instanciamos a SUA classe POO para cada questão
+        # id, enunciado, pontuacao, opcoes, correta
+        objeto_questao = QuestaoMultiplaEscolha(q[0], q[1], 2.5, [q[2],q[3],q[4],q[5]], q[6])
+        
+        # 2. Usamos o seu método corrigir() que você criou!
+        pontos_recebidos = objeto_questao.corrigir(resposta_aluno)
+        
+        nota_final += pontos_recebidos
+        total_possivel += objeto_questao.pontuacao
+
+    return render_template("resultado_aluno.html", nota=nota_final, total=total_possivel)
 #Quiz De Jogos
 @app.route('/teste_quiz/jogo', methods=['POST'])
 def aluno_quiz_jogo():
@@ -183,40 +211,67 @@ def aluno_quiz_geral():
     return render_template('aluno_resultado.html', nota=nota_final)
 
 #Rota quizz do professor
+# No app.py
+
+
 @app.route('/professor/criar_questao', methods=['GET', 'POST'])
 def criar_questao():
     if request.method == 'POST':
-        # Pega os dados do formulário
+        # 1. Pegamos os dados que o professor digitou no HTML
         enunciado = request.form.get('enunciado')
-        alt_a = request.form.get('alt_a')
-        alt_b = request.form.get('alt_b')
-        alt_c = request.form.get('alt_c')
-        alt_d = request.form.get('alt_d')
+        pontos = float(request.form.get('pontuacao'))
+        opcoes = [
+            request.form.get('alt_a'),
+            request.form.get('alt_b'),
+            request.form.get('alt_c'),
+            request.form.get('alt_d')
+        ]
         correta = request.form.get('correta')
 
-        # Salva no banco
-        bdpq.salvar_questao(enunciado, alt_a, alt_b, alt_c, alt_d, correta)
-        
-        return render_template("professor.html", mensagem="Questão criada com sucesso!")
+        # 2. Criamos o objeto usando a SUA classe POO!
+        # Passamos None para o ID porque o Banco vai gerar um automático
+        nova_q = QuestaoMultiplaEscolha(None, enunciado, pontos, opcoes, correta)
 
-    return render_template("criar_questao.html")
+        # 3. Chamamos o banco para salvar (RF2)
+        # Aqui você usa a função que criamos no bdpq.py
+        bdpq.salvar_questao(
+            nova_q.enunciado, 
+            nova_q.opcoes[0], nova_q.opcoes[1], 
+            nova_q.opcoes[2], nova_q.opcoes[3], 
+            nova_q.get_resposta_correta() # Usando o seu método get
+        )
+
+        return render_template("professor_criar_questao.html", mensagem="Sucesso!")
+
+    return render_template("professor_criar_questao.html")
+
+
+@app.route('/salvar_pergunta', methods=['POST'])
+def salvar_pergunta():
+    # 1. Pega os dados do formulário
+    enunciado = request.form.get('enunciado')
+    correta = request.form.get('correta')
+    
+    # 2. Usa a SUA classe para organizar os dados
+    # (Criamos o objeto com ID temporário e pontuação padrão 2.5)
+    nova_q = QuestaoMultiplaEscolha(None, enunciado, 2.5, [], correta)
+    
+    # 3. Manda para o banco de dados
+    bdpq.salvar_questao(nova_q.enunciado, ..., nova_q._QuestaoMultiplaEscolha__resposta_correta)
+    
+    return "Salvo com sucesso usando POO!"
 
 
 #area de sistemas/admin
 @app.route('/admin/painel')
 def admin_sistema():
-    # 1. Segurança (Descomente quando tiver o login funcionando com session)
-    # if session.get('perfil') != 'admin':
-    #     return redirect(url_for('login'))
-    
-    # 2. Busca dados REAIS do banco (RF13)
+
     try:
         contagem = bdpq.contar_registros()
     except:
-        # 3. Fallback: Se o banco falhar, mostra dados de teste para não quebrar o site
         contagem = {'usuarios': 0, 'turmas': 0, 'testes': 0}
         
-    # 4. Envia tudo para o HTML
+
     return render_template("admin_painel.html", info=contagem)
 
 

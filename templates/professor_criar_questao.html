@@ -1,14 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Criar Questões - Professor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Criar Questões</h1>
+    <h1>Criar Nova Questão de Múltipla Escolha</h1>
 
+    <form action="/professor/criar_questao" method="POST">
+        
+        <label>Pergunta (Enunciado):</label><br>
+        <textarea name="enunciado" rows="4" cols="50" required placeholder="Digite a pergunta aqui..."></textarea>
+        <br><br>
 
-<a href="{{ url_for('area_professor') }}">Area Professor</a>
+        <label>Valor da Questão (Pontuação):</label>
+        <input type="number" name="pontuacao" step="0.5" value="2.5" required>
+        <br><br>
+
+        <fieldset>
+            <legend>Alternativas</legend>
+            <label>A)</label> <input type="text" name="alt_a" required><br>
+            <label>B)</label> <input type="text" name="alt_b" required><br>
+            <label>C)</label> <input type="text" name="alt_c" required><br>
+            <label>D)</label> <input type="text" name="alt_d" required><br>
+        </fieldset>
+
+        <br>
+        <label><b>Qual é a alternativa correta?</b></label>
+        <select name="correta" required>
+            <option value="A">Alternativa A</option>
+            <option value="B">Alternativa B</option>
+            <option value="C">Alternativa C</option>
+            <option value="D">Alternativa D</option>
+        </select>
+        <br><br>
+
+        <button type="submit">Salvar Questão</button>
+    </form>
+
+    <hr>
+    <a href="{{ url_for('area_professor') }}">Voltar para Área do Professor</a>
 </body>
 </html>

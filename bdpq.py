@@ -41,6 +41,15 @@ def temas():
     conn.commit()
     conn.close()
 
+def buscar_todas_questoes():
+    conn = sqlite.connect('bdpq.sqlite3')
+    cursor = conn.cursor()
+    # Pega tudo: ID, Enunciado, as 4 alternativas e a Correta
+    cursor.execute('SELECT * FROM questoes')
+    questoes = cursor.fetchall()
+    conn.close()
+    return questoes
+
 
 #Lógicas relacionadas a Usuários
 def cadastrar(email, nome, login, senha):
@@ -97,13 +106,12 @@ def contar_registros():
     conn = sqlite3.connect('bdpq.sqlite3')
     cursor = conn.cursor()
     
-    # RF13 - Pegando os números para o painel
     cursor.execute('SELECT COUNT(*) FROM usuarios')
-    total_users = cursor.fetchone()[0]
+    total_usuarios = cursor.fetchone()[0]
     
-    # (Quando você criar as outras tabelas, adicionaremos as contagens aqui)
+
     conn.close()
-    return {'usuarios': total_users, 'turmas': 0, 'testes': 0}
+    return {'usuarios': total_usuarios, 'turmas': 0, 'testes': 0}
 
 #Lógica relacionada a questões/quizz
 def criar_tabela_questoes():

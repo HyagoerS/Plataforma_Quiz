@@ -1,22 +1,13 @@
-from .questao import Questao
-
-
+from .questao import Questao # Importa a classe mãe
 
 class QuestaoMultiplaEscolha(Questao):
     def __init__(self, id_questao, enunciado, pontuacao, opcoes, indice_correto):
         super().__init__(id_questao, enunciado, pontuacao)
-        self.opcoes = opcoes
-        self.__indice_correto = indice_correto
-
-    def adicionar_opcao(self, opcao):
-        if opcao == self.__opcao:
-            return
-
-    def difinir_correta(self, indice):
-        return
-
+        self.opcoes = opcoes # Lista de alternativas
+        self.__indice_correto = indice_correto # Encapsulamento (Privado)
 
     def corrigir(self, resposta_aluno):
+        # Se a resposta do aluno (ex: 'A') for igual à correta, ganha os pontos
         if resposta_aluno == self.__indice_correto:
             return self.pontuacao
         return 0
