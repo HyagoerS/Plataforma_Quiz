@@ -1,5 +1,3 @@
-
-    
 class Tema:
     def __init__(self, titulo, descricao):
         self.titulo = titulo

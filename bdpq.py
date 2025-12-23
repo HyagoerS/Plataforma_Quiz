@@ -131,6 +131,14 @@ def criar_tabela_questoes():
     conn.commit()
     conn.close()
 
+def buscar_todas_questoes():
+    conn = sqlite3.connect('bdpq.sqlite3')
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM questoes')
+    questoes = cursor.fetchall() # Pega todos os resultados
+    conn.close()
+    return questoes # Retorna a lista para o app.py
+
 def salvar_questao(enunciado, a, b, c, d, correta):
     conn = sqlite.connect('bdpq.sqlite3')
     cursor = conn.cursor()

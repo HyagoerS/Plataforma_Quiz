@@ -5,6 +5,8 @@ from teste.teste import meu_teste_jogos, meu_teste_geral
 
 import bdpq
 bdpq.alunos()
+bdpq.criar_tabela_questoes()
+bdpq.criar_tabela_resultados()
 
 
 
@@ -82,9 +84,12 @@ def area_aluno():
 def aluno_resultado():
     return render_template("aluno_resultado.html")
 
-@app.route('/aluno/teste/games')
-def aluno_teste_jogo():
-    return render_template("aluno_teste_jogo.html")
+@app.route('/aluno/teste/games') # Verifique se a URL está assim mesmo
+def aluno_quiz_jogo(): # Ou o nome que você deu
+    questoes = bdpq.buscar_todas_questoes()
+    print("--- DEBUG TESTE ---")
+    print(f"Questões no banco: {questoes}")
+    return render_template("aluno_teste_jogo.html", lista_questoes=questoes)
 
 @app.route('/aluno/teste/geral')
 def aluno_teste_geral():
@@ -149,11 +154,16 @@ def remover_funcionario():
 
 
 # Teste Quiz Aluno
-@app.route('/aluno/teste')
+@app.route('/aluno/teste') # URL simples e fácil
 def exibir_teste():
-    # Busca as questões no banco e manda para o HTML
+    # 1. Busca no banco
     dados_banco = bdpq.buscar_todas_questoes()
-    return render_template("realizar_teste.html", lista_questoes=dados_banco)
+    
+    # 2. DEBUG: Verifique se o console mostra as questões ao carregar a página
+    print(f"DEBUG: Carregando {len(dados_banco)} questões para o aluno.")
+
+    # 3. Usa o HTML do jogo, passando o nome que o HTML espera (lista_questoes)
+    return render_template("aluno_teste_jogo.html", lista_questoes=dados_banco)
 
 @app.route('/aluno/corrigir_teste', methods=['POST'])
 def corrigir_teste():
@@ -187,39 +197,6 @@ def corrigir_teste():
     # Retorna a página final com a pontuação
     return render_template("aluno_resultado.html", nota=nota_final, total=total_possivel)
 
-#Quiz De Jogos
-@app.route('/teste_quiz/jogo', methods=['POST'])
-def aluno_quiz_jogo():
-
-    resp1 = request.form.get('pergunta1')
-    resp2 = request.form.get('pergunta2')
-    resp3 = request.form.get('pergunta3')
-    resp4 = request.form.get('pergunta4')
-
-    respostas_do_aluno = [resp1, resp2, resp3, resp4]
-
-
-    nota_final = meu_teste_jogos.calcular_resultado(respostas_do_aluno)
-
-
-    return render_template('aluno_resultado.html', nota=nota_final)
-
-#Quiz de Conhecimento Gerias
-@app.route('/teste_quiz/geral', methods=['GET', 'POST'])
-def aluno_quiz_geral():
-
-    resp1 = request.form.get('pergunta1')
-    resp2 = request.form.get('pergunta2')
-    resp3 = request.form.get('pergunta3')
-    resp4 = request.form.get('pergunta4')
-
-    respostas_do_aluno = [resp1, resp2, resp3, resp4]
-
-
-    nota_final = meu_teste_geral.calcular_resultado(respostas_do_aluno)
-
-
-    return render_template('aluno_resultado.html', nota=nota_final)
 
 #Rota quizz do professor
 # No app.py

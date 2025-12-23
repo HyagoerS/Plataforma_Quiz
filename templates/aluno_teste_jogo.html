@@ -1,97 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Quiz Online - Aluno</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>QuizRush Teste seu Conheciomento</h1>
+ <div class="container">
+    <h1>📝 Teste Online</h1>
 
-<fieldset>
-    <form action="/teste_quiz/jogo" method="post">
-            <legend>Qual foi O Jogo Goty de 2025?</legend>
+    <form action="/aluno/corrigir_teste" method="POST">
+        
+        {% for q in lista_questoes %}
+            <h3>{{ q[1] }}</h3>
+        {% endfor %}
+        <div class="questao-card" style="margin-bottom: 30px; border: 1px solid #ccc; padding: 15px;">
             
-            <label for="q1a">
-                <input type="radio" id="q1a" name="pergunta1" value="clair-obscur"> Clair Obscur: Expedition 33
-            </label><br>
-            
-            <label for="q1b">
-                <input type="radio" id="q1b" name="pergunta1" value="death-stranding"> Death Stranding 2
-            </label><br>
-            
-            <label for="q1c">
-                <input type="radio" id="q1c" name="pergunta1" value="donkey-kong-bananza"> Donkey Kong Bananza
-            </label><br>
+            <h3>{{ loop.index }}. {{ q[1] }}</h3> <label class="opcao-bloco">
+                <input type="radio" name="resposta_{{ q[0] }}" value="A" required> 
+                A) {{ q[2] }} </label><br>
 
-            <label for="q1d">
-                <input type="radio" id="q1d" name="pergunta1" value="hollow-knight-silksong"> Hollow Knight: Silksong
-            </label>
+            <label class="opcao-bloco">
+                <input type="radio" name="resposta_{{ q[0] }}" value="B"> 
+                B) {{ q[3] }} </label><br>
 
-        </fieldset>
+            <label class="opcao-bloco">
+                <input type="radio" name="resposta_{{ q[0] }}" value="C"> 
+                C) {{ q[4] }} </label><br>
 
+            <label class="opcao-bloco">
+                <input type="radio" name="resposta_{{ q[0] }}" value="D"> 
+                D) {{ q[5] }} </label>
+        </div>
+    
 
-        <fieldset>
-            <legend>Qual foi o jogo Indie de 2025?</legend>
-            
-            <label for="q2a">
-                <input type="radio" id="q2a" name="pergunta2" value="hollow-knight-silksong">Hollow Knight: Silksong
-            </label><br>
-            
-            <label for="q2b">
-                <input type="radio" id="q2b" name="pergunta2" value="clair-obscur">  Clair Obscur: Expedition 33
-            </label><br>
-            
-            <label for="q2c">
-                <input type="radio" id="q2c" name="pergunta2" value="absolum"> Absolum
-            </label><br>
+        {% if not questoes_para_exibir %}
+            <p>Ainda não existem questões cadastradas pelo professor.</p>
+        {% else %}
+            <button type="submit" class="btn-verde">Enviar Respostas</button>
+        {% endif %}
 
-            <label for="q2d">
-                <input type="radio" id="q2d" name="pergunta2" value="ball-x-pit"> Ball x Pit
-            </label>
-        </fieldset><br>
-
-        <fieldset>
-            <legend>Qual foi o Jogo com Melhor Direção de Arte de 2025?</legend>
-            
-            <label for="q3a">
-                <input type="radio" id="q3a" name="pergunta3" value="hollow-knight-silksong"> Hollow Knight: Silksong
-            </label><br>
-            
-            <label for="q3b">
-                <input type="radio" id="q3b" name="pergunta3" value="hades-ii"> Hades II
-            </label><br>
-            
-            <label for="q3c">
-                <input type="radio" id="q3c" name="pergunta3" value="ghost-yotei"> Ghost of Yōtei
-            </label><br>
-
-            <label for="q3d">
-                <input type="radio" id="q3d" name="pergunta3" value="clair-obscur"> Clair Obscur: Expedition 33
-            </label>
-        </fieldset><br>
-
-        <fieldset>
-            <legend>Qual foi o jogo com Melhor Ação/Aventura 2025?</legend>
-            
-            <label for="q4a">
-                <input type="radio" id="q4a" name="pergunta4" value="indiana-jones"> Indiana Jones and the Great Circle
-            </label><br>
-            
-            <label for="q4b">
-                <input type="radio" id="q4b" name="pergunta4" value="hollow-knight-silksong"> Hollow Knight: Silksong
-            </label><br>
-            
-            <label for="q4c">
-                <input type="radio" id="q4c" name="pergunta4" value="split-fiction"> Split Fiction
-            </label><br>
-
-            <label for="q4d">
-                <input type="radio" id="q2d" name="pergunta4" value="death-stranding">  Death Stranding 2: On the Beach
-            </label>
-        </fieldset><br>
-
-        <button type="submit">Enviar Respostas</button>
     </form>
+</div>
 </body>
 </html>
