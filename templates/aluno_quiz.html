@@ -40,7 +40,7 @@
             <hr>
             {% endfor %}
 
-            <button type="submit" class="btn-verde">Finalizar Teste ✅</button>
+            <button type="submit" class="btn-verde">Finalizar Teste</button>
         </form>
 
     {% else %}
@@ -50,5 +50,53 @@
         </div>
     {% endif %}
 </div>
+
+<div class="container">
+    <div id="cronometro-container" style="position: sticky; top: 10px; background: #333; color: #fff; padding: 15px; border-radius: 10px; text-align: center; font-size: 1.5em; z-index: 1000;">
+        ⏱️ Tempo restante: <span id="tempo">10:00</span>
+    </div>
+
+    <h1>📝 Teste Online</h1>
+
+    <form id="formQuiz" action="/aluno/corrigir_teste" method="POST">
+        
+        {% for q in lista_questoes %}
+            {% endfor %}
+
+        <button type="submit" class="btn-verde">Finalizar Teste ✅</button>
+    </form>
+</div>
+
+<script>
+    // Define o tempo inicial: 10 minutos em segundos
+    let tempoEmSegundos = 10 * 3; 
+
+    const display = document.querySelector('#tempo');
+    const formulario = document.querySelector('#formQuiz');
+
+    const cronometro = setInterval(function () {
+        let minutos = Math.floor(tempoEmSegundos / 60);
+        let segundos = tempoEmSegundos % 60;
+
+        // Formatação para ter sempre dois dígitos (ex: 05:09)
+        minutos = minutos < 10 ? '0' + minutos : minutos;
+        segundos = segundos < 10 ? '0' + segundos : segundos;
+
+        display.textContent = minutos + ":" + segundos;
+
+        // Quando o tempo chega a zero
+        if (--tempoEmSegundos < 0) {
+            clearInterval(cronometro);
+            alert("O tempo acabou! O seu teste será enviado automaticamente.");
+            formulario.submit(); // Envia o formulário sozinho!
+        }
+
+        // Estilo de alerta quando faltar menos de 1 minuto
+        if (tempoEmSegundos < 60) {
+            document.getElementById('cronometro-container').style.background = "#dc3545";
+        }
+
+    }, 1000); // Executa a cada 1 segundo
+</script>
 </body>
 </html>

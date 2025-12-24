@@ -1,18 +1,27 @@
 import sqlite3 as sqlite
 import datetime
 
-def alunos():
-    conn = sqlite.connect('bdpq.sqlite3')
+import sqlite3
+
+def criar_tabela_alunos():
+    conn = sqlite3.connect('bdpq.sqlite3') # Corrigido para sqlite3
     cursor = conn.cursor()
     cursor.execute('''
-    CREATE TABLE IF NOT EXISTS alunos(
-    email TEXT PRIMARY KEY,
-    nome TEXT NOT NULL,
-    login TEXT NOT NULL,
-    senha TEXT NOT NULL
-    
-    )
-''')
+        CREATE TABLE IF NOT EXISTS alunos(
+            email TEXT PRIMARY KEY,
+            nome TEXT NOT NULL,
+            login TEXT NOT NULL,
+            senha TEXT NOT NULL
+        )
+    ''')
+    conn.commit()
+    conn.close()
+
+def inserir_usuario(nome, email, login, senha):
+    conn = sqlite3.connect('bdpq.sqlite3')
+    cursor = conn.cursor()
+    cursor.execute('INSERT INTO alunos (nome, email, login, senha) VALUES (?, ?, ?, ?)', 
+                   (nome, email, login, senha))
     conn.commit()
     conn.close()
 

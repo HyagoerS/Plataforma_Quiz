@@ -4,7 +4,7 @@ from conteudo.multipla_escolha import QuestaoMultiplaEscolha
 
 
 import bdpq
-bdpq.alunos()
+bdpq.criar_tabela_alunos()
 bdpq.criar_tabela_questoes()
 bdpq.criar_tabela_resultados()
 
@@ -87,7 +87,7 @@ def aluno_resultado():
 @app.route('/aluno/quiz') # Verifique se a URL está assim mesmo
 def aluno_quiz(): # Ou o nome que você deu
     questoes = bdpq.buscar_todas_questoes()
-    return render_template("aluno_teste_jogo.html", lista_questoes=questoes)
+    return render_template("aluno_quiz.html", lista_questoes=questoes)
 
 
 #Login dos Usuários Aluno/Porfessor
@@ -122,13 +122,18 @@ def autenticar():
 #Identificar por tipo, pegando pelo email aluno e professor
 @app.route('/cadastrar', methods=['POST'])
 def cadastrar():
+    # 1. Pega os dados com os nomes que colocamos no HTML
     nome = request.form.get('nome')
     email = request.form.get('email')
+    login = request.form.get('login')
     senha = request.form.get('senha')
-    perfil = request.form.get('perfil') # Pegando do formulário
     
-    # Lógica para salvar no banco (bdpq.inserir_usuario(nome, email, senha, perfil))
-    return render_template('admin_usuarios', mesagem="Sucesso")
+    # 2. Salva de verdade no banco
+    try:
+        bdpq.inserir_usuario(nome, email, login, senha)
+        return render_template('admin_usuarios.html', mensagem="Usuário cadastrado com sucesso!")
+    except Exception as e:
+        return render_template('admin_usuarios.html', mensagem=f"Erro ao cadastrar: {e}")
 
 
 

@@ -11,15 +11,17 @@
 
 
 <h3>Criar Novo Usuário</h3>
-<form action="/admin/usuarios" method="POST">
-    <label>Nome:</label>
-    <input type="text" name="nomeUsuario" required><br>
-    <label>Login:</label>
-    <input type="text" name="loginUsuario" required><br>
-    <label>Senha:</label>
-    <input type="password" name="senhaUsuario" required><br>
+<form action="/cadastrar" method="POST"> <label>Nome:</label>
+    <input type="text" name="nome" required><br>
+    
     <label>Email:</label>
-    <input type="text" name="emailUsuario" required><br>
+    <input type="email" name="email" required><br>
+    
+    <label>Login:</label>
+    <input type="text" name="login" required><br>
+    
+    <label>Senha:</label>
+    <input type="password" name="senha" required><br>
 
     <button type="submit">Cadastrar</button>
 </form>
@@ -33,5 +35,6 @@
 </form><br>
 
 <a href="{{ url_for('area_admin') }}">Aréa Admin</a><br>
+<a href="/" class="btn-vermelho">Voltar para página Principal</a>
 </body>
 </html>
