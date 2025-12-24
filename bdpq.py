@@ -1,5 +1,5 @@
 import sqlite3 as sqlite
-import datetime
+from datetime import datetime
 
 import sqlite3
 

@@ -11,14 +11,11 @@ bdpq.criar_tabela_resultados()
 
 
 app = Flask(__name__)
-
+app.secret_key = 'projeto_quiz_key' # ESSENCIAL
 
 #senha padrão pré-definidas
 login = "admin"
 senha = 123
-
-loginAluno = "aluno"
-senhaAluno = 123
 
 loginProfessor = "professor"
 senhaProfessor = 123
@@ -29,8 +26,6 @@ sistema = Sistema()
 #Rota da Página Principal/Inicial
 @app.route('/')
 def home():
-    login = request.form.get("loginUsuario")
-    senha = request.form.get("senhaUsuario")
     return render_template("principal.html", mensagem="Login ou senha incorretos!")
 
 
@@ -96,24 +91,31 @@ def aluno_quiz(): # Ou o nome que você deu
 def autenticar():
     login_form = request.form.get("loginUsuario")
     senha_form = request.form.get("senhaUsuario")
-
     usuario = bdpq.login(login_form, senha_form)
 
+    # Lógica simplificada:
     if login_form == "admin" and str(senha_form) == "123":
-        return render_template("admin.html")
-
-    elif login_form == "aluno" and str(senha_form) == "123":
-        return render_template("aluno.html")
+        session['perfil'] = 'admin'
+        return redirect('/admin') # Use redirect em vez de render_template aqui
+    
+    # Se o login vier do banco (usuario)
+    if usuario:
+        session['usuario_logado'] = login_form # Importante para salvar a nota depois!
+        session['perfil'] = 'aluno' # Ou pegue o perfil real do banco
+        return redirect('/aluno')
 
     elif login_form == "professor" and str(senha_form) == "123":
-        return render_template("professor.html")
-    elif usuario:
-        return render_template("aluno.html")
+       return render_template("professor.html")
+   # elif usuario:
+    #    return render_template("aluno.html")
     else:
         return render_template("principal.html", mensagem="Login ou senha incorretos!")
 
-
-
+@app.route('/logout')
+def logout():
+    session.clear() # Limpa tudo!
+    
+    return redirect('/')
 
 #Cadastrar usuario
 # aqui chamar o POO ou bdpq
@@ -161,7 +163,7 @@ def exibir_teste():
     print(f"DEBUG: Carregando {len(dados_banco)} questões para o aluno.")
 
     # 3. Usa o HTML do jogo, passando o nome que o HTML espera (lista_questoes)
-    return render_template("aluno_teste_jogo.html", lista_questoes=dados_banco)
+    return render_template("aluno_quiz.html", lista_questoes=dados_banco)
 
 @app.route('/aluno/corrigir_teste', methods=['POST'])
 def corrigir_teste():
@@ -231,21 +233,6 @@ def criar_questao():
 
     return render_template("professor_criar_questao.html")
 
-
-@app.route('/salvar_pergunta', methods=['POST'])
-def salvar_pergunta():
-    # 1. Pega os dados do formulário
-    enunciado = request.form.get('enunciado')
-    correta = request.form.get('correta')
-    
-    # 2. Usa a SUA classe para organizar os dados
-    # (Criamos o objeto com ID temporário e pontuação padrão 2.5)
-    nova_q = QuestaoMultiplaEscolha(None, enunciado, 2.5, [], correta)
-    
-    # 3. Manda para o banco de dados
-    bdpq.salvar_questao(nova_q.enunciado, ..., nova_q._QuestaoMultiplaEscolha__resposta_correta)
-    
-    return "Salvo com sucesso usando POO!"
 
 @app.route('/professor/resultados')
 def visualizar_resultados():
