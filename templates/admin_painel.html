@@ -1,29 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Estatísticas - QuizRush</title>
 </head>
 <body>
+    <div class="container">
+        <h1>📊 Estatísticas do Sistema</h1>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 30px 0;">
+            <div style="background: var(--kahoot-azul); color: white; padding: 20px; border-radius: 15px;">
+                <h3 style="color: white;">Usuários</h3>
+                <p style="font-size: 2.5em; font-weight: 900;">{{ info.usuarios }}</p>
+            </div>
 
-    <h1>Estatísticas do Sistema</h1>
-<div>
-        <div>
-            <h3>Usuários</h3>
-            <p>{{ info.usuarios }}</p>
+            <div style="background: var(--kahoot-amarelo); color: white; padding: 20px; border-radius: 15px;">
+                <h3 style="color: white;">Turmas</h3>
+                <p style="font-size: 2.5em; font-weight: 900;">{{ info.turmas }}</p>
+            </div>
+
+            <div style="background: var(--kahoot-verde); color: white; padding: 20px; border-radius: 15px;">
+                <h3 style="color: white;">Testes</h3>
+                <p style="font-size: 2.5em; font-weight: 900;">{{ info.testes }}</p>
+            </div>
         </div>
 
-        <div>
-            <h3>Turmas</h3>
-            <p>{{ info.turmas }}</p>
-        </div>
-
-        <div>
-            <h3>Testes Criados</h3>
-            <p>{{ info.testes }}</p>
-        </div>
+        <a href="{{ url_for('area_admin') }}" class="btn btn-roxo">Voltar ao Painel</a>
     </div>
-    <a href="{{ url_for('admin_turmas') }}">Voltar</a>
 </body>
 </html>

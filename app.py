@@ -91,23 +91,24 @@ def aluno_quiz(): # Ou o nome que você deu
 def autenticar():
     login_form = request.form.get("loginUsuario")
     senha_form = request.form.get("senhaUsuario")
-    usuario = bdpq.login(login_form, senha_form)
 
-    # Lógica simplificada:
+    # 1. Verificação Hardcoded (Admin/Professor padrão)
     if login_form == "admin" and str(senha_form) == "123":
+        session['usuario_logado'] = "admin@sistema.com"
         session['perfil'] = 'admin'
-        return redirect('/admin') # Use redirect em vez de render_template aqui
-    
-    # Se o login vier do banco (usuario)
-    if usuario:
-        session['usuario_logado'] = login_form # Importante para salvar a nota depois!
-        session['perfil'] = 'aluno' # Ou pegue o perfil real do banco
-        return redirect('/aluno')
+        return redirect('/admin')
 
-    elif login_form == "professor" and str(senha_form) == "123":
-       return render_template("professor.html")
-   # elif usuario:
-    #    return render_template("aluno.html")
+    if login_form == "professor" and str(senha_form) == "123":
+        session['usuario_logado'] = "professor@sistema.com"
+        session['perfil'] = 'professor'
+        return redirect('/professor')
+
+    # 2. Verificação no Banco de Dados (Alunos cadastrados)
+    usuario = bdpq.login(login_form, senha_form) # usuario aqui deve ser o email ou tupla do banco
+    if usuario:
+        session['usuario_logado'] = login_form # salvamos o email/login na sessão
+        session['perfil'] = 'aluno'
+        return redirect('/aluno')
     else:
         return render_template("principal.html", mensagem="Login ou senha incorretos!")
 
@@ -249,13 +250,11 @@ def visualizar_resultados():
 #area de sistemas/admin
 @app.route('/admin/painel')
 def admin_sistema():
-
-    try:
-        contagem = bdpq.contar_registros()
-    except:
-        contagem = {'usuarios': 0, 'turmas': 0, 'testes': 0}
+    # Verifica se é admin
+    if session.get('perfil') != 'admin':
+        return redirect('/')
         
-
+    contagem = bdpq.contar_registros() # Ex: {'usuarios': 5, 'questoes': 10, 'resultados': 8}
     return render_template("admin_painel.html", info=contagem)
 
 

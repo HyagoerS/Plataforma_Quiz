@@ -6,6 +6,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+
+<div class="container">
+    <div id="cronometro-container" style="position: sticky; top: 10px; background: #cf8000; color: #fff; padding: 15px; border-radius: 10px; text-align: center; font-size: 1.5em; z-index: 1000;">
+    Tempo restante: <span id="tempo">10:00</span>
+    </div>
+</div>
+
 <div class="container">
     <h1>QuizRush</h1>
 
@@ -51,15 +58,10 @@
     {% endif %}
 </div>
 
-<div class="container">
-    <div id="cronometro-container" style="position: sticky; top: 10px; background: #333; color: #fff; padding: 15px; border-radius: 10px; text-align: center; font-size: 1.5em; z-index: 1000;">
-    Tempo restante: <span id="tempo">10:00</span>
-    </div>
-</div>
 
 <script>
     // Tempo para teste: 5 segundos. Depois mude para 10 * 60
-    let tempoEmSegundos = 5; 
+    let tempoEmSegundos = 30; 
 
     const display = document.querySelector('#tempo');
 

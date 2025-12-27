@@ -1,0 +1,206 @@
+/* --- IMPORTANDO A FONTE ESTILO KAHOOT --- */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+
+/* --- VARIÁVEIS DE CORES (A Paleta Kahoot) --- */
+:root {
+    --kahoot-roxo: #46178f;  /* Cor principal */
+    --kahoot-azul: #1368ce;  /* Opção B (Diamante) */
+    --kahoot-vermelho: #e21b3c; /* Opção A (Triângulo) / Erro */
+    --kahoot-amarelo: #ffa602; /* Opção C (Círculo) */
+    --kahoot-verde: #26890c;  /* Opção D (Quadrado) / Sucesso */
+    --fundo-geral: #f2f2f2;   /* Cinza claro de fundo */
+    --texto-escuro: #333;
+    --sombra-botao: rgba(0, 0, 0, 0.2);
+}
+
+/* --- RESET BÁSICO --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--fundo-geral);
+    color: var(--texto-escuro);
+    line-height: 1.6;
+    padding: 20px;
+    text-align: center; /* Centraliza tudo por padrão */
+}
+
+/* --- TIPOGRAFIA --- */
+h1, h2, h3 {
+    font-weight: 900; /* Negrito extra forte */
+    color: var(--kahoot-roxo);
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+}
+
+h1 { font-size: 3em; }
+h3.enunciado-estilo {
+    font-size: 1.8em;
+    color: var(--texto-escuro);
+    text-align: left;
+    padding: 20px 0;
+}
+
+/* --- CONTAINER PRINCIPAL (O "Cartão" branco) --- */
+.container {
+    background-color: #fff;
+    max-width: 800px;
+    margin: 30px auto; /* Centraliza na tela */
+    padding: 40px;
+    border-radius: 20px; /* Cantos bem arredondados */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1); /* Sombra suave 3D */
+}
+
+/* --- FORMULÁRIOS E INPUTS --- */
+form {
+    margin-top: 20px;
+    text-align: left; /* Alinha formulários à esquerda dentro do container */
+}
+
+label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--kahoot-roxo);
+    font-size: 1.1em;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 25px;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    transition: border-color 0.3s;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--kahoot-roxo);
+}
+
+/* --- BOTÕES "GORDINHOS" ESTILO KAHOOT --- */
+button, .btn {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 1.2rem;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    text-decoration: none; /* Para links com cara de botão */
+    display: inline-block;
+    margin: 10px 5px;
+    color: white;
+    /* O segredo do efeito 3D: uma borda inferior grossa */
+    border-bottom: 5px solid var(--sombra-botao);
+}
+
+/* Efeito ao clicar (o botão "afunda") */
+button:active, .btn:active {
+    transform: translateY(3px);
+    border-bottom-width: 2px;
+}
+
+/* Cores dos Botões */
+button[type="submit"] { background-color: var(--kahoot-roxo); } /* Padrão Roxo */
+.btn-roxo { background-color: var(--kahoot-roxo); }
+.btn-verde { background-color: var(--kahoot-verde); }
+.btn-vermelho { background-color: var(--kahoot-vermelho); }
+.btn-azul { background-color: var(--kahoot-azul); }
+
+
+/* --- ESTILOS ESPECÍFICOS DO QUIZ (As Alternativas) --- */
+
+/* O bloco inteiro da opção */
+.opcao-bloco {
+    display: block;
+    background-color: #f0f0f0;
+    padding: 25px;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-align: left;
+    border-bottom: 4px solid #dcdcdc;
+    transition: all 0.2s;
+    position: relative; /* Necessário para esconder o radio button */
+}
+
+/* Esconde a "bolinha" padrão do radio button */
+.opcao-bloco input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Efeito ao passar o mouse (Hover colorido estilo Kahoot) */
+.opcao-bloco:hover { transform: translateY(-2px); color: white; border-bottom-color: rgba(0,0,0,0.3);}
+/* Cores específicas por alternativa no hover */
+.opcao-bloco:nth-of-type(1):hover { background-color: var(--kahoot-vermelho); } /* A - Vermelho */
+.opcao-bloco:nth-of-type(2):hover { background-color: var(--kahoot-azul); }     /* B - Azul */
+.opcao-bloco:nth-of-type(3):hover { background-color: var(--kahoot-amarelo); text-shadow: 0 1px 1px rgba(0,0,0,0.2); }  /* C - Amarelo */
+.opcao-bloco:nth-of-type(4):hover { background-color: var(--kahoot-verde); }    /* D - Verde */
+
+
+/* Quando uma opção é selecionada (Usa o truque do :has se o navegador suportar, ou uma borda roxa simples) */
+.opcao-bloco:has(input:checked) {
+    background-color: #eaddff; /* Um roxo bem clarinho */
+    box-shadow: inset 0 0 0 4px var(--kahoot-roxo); /* Borda interna roxa grossa */
+    border-bottom-color: var(--kahoot-roxo);
+}
+
+
+/* --- TABELAS (Para o painel do professor) --- */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px; /* Espaço entre as linhas */
+    margin-top: 30px;
+}
+
+th {
+    background-color: var(--kahoot-roxo);
+    color: white;
+    padding: 15px;
+    text-align: left;
+    font-weight: 900;
+}
+th:first-child { border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
+th:last-child { border-top-right-radius: 10px; border-bottom-right-radius: 10px; }
+
+td {
+    background-color: #f9f9f9;
+    padding: 15px;
+    text-align: left;
+    border-top: 2px solid #eee;
+    border-bottom: 2px solid #eee;
+}
+td:first-child { border-left: 2px solid #eee; border-top-left-radius: 10px; border-bottom-left-radius: 10px;}
+td:last-child { border-right: 2px solid #eee; border-top-right-radius: 10px; border-bottom-right-radius: 10px;}
+
+
+/* --- MENSAGENS DE ALERTA E ERRO --- */
+.alerta, p[style*="color: red"] {
+    background-color: #f8d7da;
+    color: #721c24 !important; /* Força a cor escura */
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #f5c6cb;
+    font-weight: 700;
+    margin: 20px 0;
+}

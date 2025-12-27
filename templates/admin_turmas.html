@@ -1,14 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Gestão de Turmas</title>
 </head>
 <body>
-    <h1>Administrador - Gestão de Turmas</h1>
+    <div class="container">
+        <h1>Gestão de Turmas</h1>
+        <p>Recurso em desenvolvimento...</p>
 
-<a href="{{ url_for('area_admin') }}">Aréa Admin</a><br>
-<a href="{{ url_for('area_admin') }}">Aréa Admin</a><br>
+        <div style="margin-top: 30px;">
+            <a href="{{ url_for('area_admin') }}" class="btn btn-azul">Voltar ao Menu Admin</a>
+        </div>
+    </div>
 </body>
 </html>

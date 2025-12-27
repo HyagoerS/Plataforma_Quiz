@@ -1,40 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Gestão de Usuários</title>
 </head>
 <body>
+    <div class="container">
+        <h1>👥 Gestão de Usuários</h1>
 
-<h1>Aréa Administradora de Usuários</h1>
+        {% if mensagem %}
+            <div class="alerta">{{ mensagem }}</div>
+        {% endif %}
 
+        <div class="questao-card" style="background: #f9f9f9; padding: 20px; border-radius: 15px; margin-bottom: 30px;">
+            <h3>➕ Criar Novo Usuário</h3>
+            <form action="/cadastrar" method="POST">
+                <label>Nome:</label>
+                <input type="text" name="nome" placeholder="Nome Completo" required>
+                
+                <label>Email:</label>
+                <input type="email" name="email" placeholder="exemplo@email.com" required>
+                
+                <label>Login:</label>
+                <input type="text" name="login" placeholder="Nome de Usuário" required>
+                
+                <label>Senha:</label>
+                <input type="password" name="senha" placeholder="Senha" required>
 
-<h3>Criar Novo Usuário</h3>
-<form action="/cadastrar" method="POST"> <label>Nome:</label>
-    <input type="text" name="nome" required><br>
-    
-    <label>Email:</label>
-    <input type="email" name="email" required><br>
-    
-    <label>Login:</label>
-    <input type="text" name="login" required><br>
-    
-    <label>Senha:</label>
-    <input type="password" name="senha" required><br>
+                <button type="submit" class="btn-verde" style="width: 100%;">Cadastrar Usuário</button>
+            </form>
+        </div>
 
-    <button type="submit">Cadastrar</button>
-</form>
+        <div class="questao-card" style="background: #fff0f0; padding: 20px; border-radius: 15px; border: 2px solid var(--kahoot-vermelho);">
+            <h3>🗑️ Excluir Usuário</h3>
+            <form action="/admin/usuarios/remover" method="POST">
+                <label>Digite o Email para remover:</label>
+                <input type="email" name="emailRemover" placeholder="email@paraexcluir.com" required>
+                <button type="submit" class="btn-vermelho" style="width: 100%;">Remover Permanentemente</button>
+            </form>
+        </div>
 
-<h3>Excluir Usuário</h3>
-
-<form action="/admin/usuarios/remover" method="POST">
-    <label>Email:</label>
-    <input type="text" name="emailRemover" required><br>
-    <button type="submit">Remover Usuário</button>
-</form><br>
-
-<a href="{{ url_for('area_admin') }}">Aréa Admin</a><br>
-<a href="/" class="btn-vermelho">Voltar para página Principal</a>
+        <div style="margin-top: 20px;">
+            <a href="{{ url_for('area_admin') }}" class="btn btn-azul">⬅️ Voltar ao Menu</a>
+        </div>
+    </div>
 </body>
 </html>

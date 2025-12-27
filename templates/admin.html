@@ -1,20 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Painel Admin - QuizRush</title>
 </head>
 <body>
-    <h1>Aréa Administradora</h1>
-
-
-<a href="{{ url_for('admin_usuario') }}">Gerenciar Usuários</a><br>
-
-<a href="{{ url_for('admin_turmas') }}">Gerenciar Turmas</a><br>
-
-<a href="{{ url_for('admin_sistema') }}">Verificar Painel de Controle</a><br>
-
-<a href="/">Voltar para página Principal</a>
+    <div class="container">
+        <h1>Área Administradora</h1>
+        <p>O que você deseja gerenciar hoje?</p>
+        
+        <div style="margin-top: 30px; display: flex; flex-direction: column; gap: 10px;">
+            <a href="{{ url_for('admin_usuario') }}" class="btn btn-roxo">Gerenciar Usuários</a>
+            <a href="{{ url_for('admin_turmas') }}" class="btn btn-azul"> Gerenciar Turmas</a>
+            <a href="{{ url_for('admin_sistema') }}" class="btn btn-amarelo">Painel de Controle</a>
+            
+            <hr style="margin: 20px 0;">
+            <a href="/" class="btn btn-vermelho">Voltar para Início</a>
+        </div>
+    </div>
 </body>
 </html>
