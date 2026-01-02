@@ -111,16 +111,6 @@ def usuario():
     conn.commit()
     conn.close()
 
-def contar_registros():
-    conn = sqlite3.connect('bdpq.sqlite3')
-    cursor = conn.cursor()
-    
-    cursor.execute('SELECT COUNT(*) FROM usuarios')
-    total_usuarios = cursor.fetchone()[0]
-    
-
-    conn.close()
-    return {'usuarios': total_usuarios, 'turmas': 0, 'testes': 0}
 
 #Lógica relacionada a questões/quizz
 def criar_tabela_questoes():

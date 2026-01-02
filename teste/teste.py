@@ -1,6 +1,3 @@
-
-
-
 class AplicarTeste:
     def __init__(self, id, titulo, questoes_com_pontuacao, id_turma, inicio, termino, tempo_max_minutos, id_professor):
         self._id = id
@@ -49,14 +46,3 @@ class Teste:
             if respostas_aluno[i] == self.gabarito[i]:
                 pontos += 2.5
         return pontos
-
-
-
-# Gabarito de Jogos
-gab_jogos = ["clair-obscur", "clair-obscur", "clair-obscur", "hollow-knight-silksong"]
-# Gabarito Geral
-gab_geral = ["russia", "famosas", "vinci", "independencia"]
-
-
-meu_teste_jogos = Teste("Quiz de Games 2025", gab_jogos)
-meu_teste_geral = Teste("Quiz de Perguntas Gerais", gab_geral)

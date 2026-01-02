@@ -8,14 +8,14 @@
 </head>
 <body>
     <div class="container">
-        <h1>👥 Gestão de Usuários</h1>
+        <h1>Gestão de Usuários</h1>
 
         {% if mensagem %}
             <div class="alerta">{{ mensagem }}</div>
         {% endif %}
 
         <div class="questao-card" style="background: #f9f9f9; padding: 20px; border-radius: 15px; margin-bottom: 30px;">
-            <h3>➕ Criar Novo Usuário</h3>
+            <h3>Criar Novo Usuário</h3>
             <form action="/cadastrar" method="POST">
                 <label>Nome:</label>
                 <input type="text" name="nome" placeholder="Nome Completo" required>
@@ -34,7 +34,7 @@
         </div>
 
         <div class="questao-card" style="background: #fff0f0; padding: 20px; border-radius: 15px; border: 2px solid var(--kahoot-vermelho);">
-            <h3>🗑️ Excluir Usuário</h3>
+            <h3>Excluir Usuário</h3>
             <form action="/admin/usuarios/remover" method="POST">
                 <label>Digite o Email para remover:</label>
                 <input type="email" name="emailRemover" placeholder="email@paraexcluir.com" required>
@@ -43,7 +43,7 @@
         </div>
 
         <div style="margin-top: 20px;">
-            <a href="{{ url_for('area_admin') }}" class="btn btn-azul">⬅️ Voltar ao Menu</a>
+            <a href="{{ url_for('area_admin') }}" class="btn btn-azul">Voltar ao Menu</a>
         </div>
     </div>
 </body>

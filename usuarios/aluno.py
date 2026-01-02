@@ -1,26 +1,13 @@
 from .usuario import Usuario
 
 class Aluno(Usuario):
-    def __init__(self, nome, email, senha):
+    def __init__(self, id, nome, email, senha, turma="Geral"):
+        # super() passa os dados para a classe Usuario
         super().__init__(id, nome, email, senha)
-        self.nome = nome
-        self.senha = senha
+        self.turma = turma
+        self.notas = []
 
-
-    def realizar_teste(self, teste, sistema):
-        return
-    
-
-    def visualizar_gabarito(self, gabarito):
-        self.gabarito = gabarito
-
-    
-    
-
-class AlunoLogin:
-    def __init__(self, email, senha, testes_disponiveis):
-        self.email = email
-        self.senha = senha
-        self.testes_disponiveis = testes_disponiveis
+    def adicionar_nota(self, nota):
+        self.notas.append(nota)
 
 

@@ -1,19 +1,14 @@
-from estrutura.excecoes import ErroDeLogin
-
 class Usuario:
     def __init__(self, id, nome, email, senha):
-        self._id = id            
+        self._id = id           # Protegido
         self.nome = nome          
         self.email = email
-        self.__senha = senha      
+        self.__senha = senha    # Privado (Encapsulamento)
         
-def verificar_dados(self, login_informado, senha_informada):
-    # Usando o email como login
-    if self.email == login_informado and self.__senha == senha_informada:
-        return True
-    raise ErroDeLogin("Login ou senha incorretos.")
-   
-   
+    def verificar_senha(self, senha_informada):
+        """Método seguro para validar a senha sem expô-la"""
+        return self.__senha == senha_informada
+
     def get_id(self):
         return self._id
     

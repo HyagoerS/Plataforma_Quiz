@@ -20,7 +20,6 @@ senha = 123
 loginProfessor = "professor"
 senhaProfessor = 123
 
-sistema = Sistema()
 
 
 #Rota da Página Principal/Inicial
@@ -245,17 +244,6 @@ def visualizar_resultados():
     lista_notas = bdpq.buscar_todos_resultados()
     
     return render_template("professor_resultados.html", resultados=lista_notas)
-
-
-#area de sistemas/admin
-@app.route('/admin/painel')
-def admin_sistema():
-    # Verifica se é admin
-    if session.get('perfil') != 'admin':
-        return redirect('/')
-        
-    contagem = bdpq.contar_registros() # Ex: {'usuarios': 5, 'questoes': 10, 'resultados': 8}
-    return render_template("admin_painel.html", info=contagem)
 
 
 
