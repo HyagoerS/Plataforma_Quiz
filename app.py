@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-from estrutura.sistema import Sistema
+from usuarios.usuario import Usuario
 from conteudo.multipla_escolha import QuestaoMultiplaEscolha
 
 
 import bdpq
-bdpq.criar_tabela_alunos()
+bdpq.criar_tabela_usuarios()
 bdpq.criar_tabela_questoes()
 bdpq.criar_tabela_resultados()
 
@@ -80,30 +80,35 @@ def aluno_quiz():
 
 #Login dos Usuários Aluno/Porfessor
 
+
+
 @app.route('/autenticar', methods=['POST'])
 def autenticar():
     login_form = request.form.get("loginUsuario")
     senha_form = request.form.get("senhaUsuario")
 
-
+    # PRIMEIRO: Checa se é o Admin (Fixo no código)
     if login_form == "admin" and str(senha_form) == "123":
         session['usuario_logado'] = "admin@sistema.com"
         session['perfil'] = 'admin'
         return redirect('/admin')
-
+    
     if login_form == "professor" and str(senha_form) == "123":
         session['usuario_logado'] = "professor@sistema.com"
         session['perfil'] = 'professor'
         return redirect('/professor')
 
-    # 2. Verificação no Banco de Dados (Alunos cadastrados)
-    usuario = bdpq.login(login_form, senha_form) # usuario aqui deve ser o email ou tupla do banco
-    if usuario:
-        session['usuario_logado'] = login_form # salvamos o email/login na sessão
-        session['perfil'] = 'aluno'
-        return redirect('/aluno')
-    else:
-        return render_template("principal.html", mensagem="Login ou senha incorretos!")
+    # SEGUNDO: Se não for admin, aí sim ele tenta buscar no banco
+    dados = bdpq.buscar_usuario_para_login(login_form) # Agora não vai crashar porque a tabela existe!
+
+    if dados:
+        user = Usuario(dados[0], dados[1], dados[2], dados[3])
+        if user.verificar_senha(senha_form):
+            session['usuario_logado'] = user.email
+            session['perfil'] = 'aluno'
+            return redirect('/aluno')
+
+    return render_template("principal.html", mensagem="Login ou senha incorretos!")
 
 @app.route('/logout')
 def logout():
@@ -115,17 +120,16 @@ def logout():
 #Identificar por tipo, pegando pelo email aluno e professor
 @app.route('/cadastrar', methods=['POST'])
 def cadastrar():
-    # 1. Pega os dados com os nomes que colocamos no HTML
     nome = request.form.get('nome')
     email = request.form.get('email')
     login = request.form.get('login')
     senha = request.form.get('senha')
-    
+
     try:
-        bdpq.inserir_usuario(nome, email, login, senha)
+        bdpq.inserir_usuario(nome, email, login, senha, perfil='aluno')
         return render_template('admin_usuarios.html', mensagem="Usuário cadastrado com sucesso!")
     except Exception as e:
-        return render_template('admin_usuarios.html', mensagem=f"Erro ao cadastrar: {e}")
+        return render_template('admin_usuarios.html', mensagem=f"Erro: {e}")
 
 
 

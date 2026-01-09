@@ -2,82 +2,59 @@ import sqlite3
 from datetime import datetime
 
 
-def criar_tabela_alunos():
-    conn = sqlite3.connect('bdpq.sqlite3') # Corrigido para sqlite3
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS alunos(
-            email TEXT PRIMARY KEY,
-            nome TEXT NOT NULL,
-            login TEXT NOT NULL,
-            senha TEXT NOT NULL
-        )
-    ''')
-    conn.commit()
-    conn.close()
+# GESTÃO DE USUÁRIOS (Tabela Única)
 
-def inserir_usuario(nome, email, login, senha):
+
+def criar_tabela_usuarios():
     conn = sqlite3.connect('bdpq.sqlite3')
     cursor = conn.cursor()
-    cursor.execute('INSERT INTO alunos (nome, email, login, senha) VALUES (?, ?, ?, ?)', 
-                   (nome, email, login, senha))
-    conn.commit()
-    conn.close()
-
-
-#Lógicas relacionadas a Usuários
-def cadastrar(email, nome, login, senha):
-    conn = sqlite3.connect('bdpq.sqlite3')
-    cursor = conn.cursor()
-
-    cursor.execute("INSERT INTO alunos (email, nome, login, senha) VALUES (?, ?, ?, ?)", (email, nome, login, senha,))
-
-    conn.commit()
-    conn.close()
-    return "Dados inseridos com sucesso!"
-
-
-def login(login, senha):
-    conn = sqlite3.connect('bdpq.sqlite3')
-    cursor = conn.cursor()
-
-    cursor.execute("SELECT * FROM alunos WHERE login=? and senha=?", (login, senha) )
-    dados = cursor.fetchall()
-    conn.close()
-    return len(dados) > 0
-
-
-def remover(email):
-    conn = sqlite3.connect('bdpq.sqlite3')
-    cursor = conn.cursor()
-
-    cursor.execute("DELETE FROM alunos WHERE email=?", (email,))
-    linhas_afetadas = cursor.rowcount
-
-    conn.commit()
-    conn.close()
-    return linhas_afetadas > 0 
-
-
-
-def usuario():
-    conn = sqlite3.connect('bdpq.sqlite3')
-    cursor = conn.cursor()
-    # Atualizando a tabela para incluir o PERFIL (RF11)
+    # Criamos uma tabela única que serve para Alunos, Professores e Admins
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS usuarios (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nome TEXT NOT NULL,
             email TEXT UNIQUE NOT NULL,
+            login TEXT UNIQUE NOT NULL,
             senha TEXT NOT NULL,
-            perfil TEXT NOT NULL -- 'admin', 'professor' ou 'aluno'
+            perfil TEXT NOT NULL -- 'aluno', 'professor' ou 'admin'
         )
     ''')
     conn.commit()
     conn.close()
 
+def inserir_usuario(nome, email, login, senha, perfil='aluno'):
+    conn = sqlite3.connect('bdpq.sqlite3')
+    cursor = conn.cursor()
+    cursor.execute('''
+        INSERT INTO usuarios (nome, email, login, senha, perfil) 
+        VALUES (?, ?, ?, ?, ?)
+    ''', (nome, email, login, senha, perfil))
+    conn.commit()
+    conn.close()
 
-#Lógica relacionada a questões/quizz
+def buscar_usuario_para_login(login_informado):
+    conn = sqlite3.connect('bdpq.sqlite3')
+    cursor = conn.cursor()
+    # Busca por login ou email para flexibilidade
+    cursor.execute('SELECT id, nome, email, senha, perfil FROM usuarios WHERE login = ? OR email = ?', 
+                   (login_informado, login_informado))
+    usuario = cursor.fetchone()
+    conn.close()
+    return usuario
+
+def remover_usuario(email):
+    conn = sqlite3.connect('bdpq.sqlite3')
+    cursor = conn.cursor()
+    # Atualizado para remover da tabela correta 'usuarios'
+    cursor.execute("DELETE FROM usuarios WHERE email=?", (email,))
+    linhas_afetadas = cursor.rowcount
+    conn.commit()
+    conn.close()
+    return linhas_afetadas > 0 
+
+
+# GESTÃO DE QUESTÕES (QUIZ)
+
 def criar_tabela_questoes():
     conn = sqlite3.connect('bdpq.sqlite3')
     cursor = conn.cursor()
@@ -89,7 +66,7 @@ def criar_tabela_questoes():
             alternativa_b TEXT NOT NULL,
             alternativa_c TEXT NOT NULL,
             alternativa_d TEXT NOT NULL,
-            correta TEXT NOT NULL -- Guardaremos aqui 'A', 'B', 'C' ou 'D'
+            correta TEXT NOT NULL 
         )
     ''')
     conn.commit()
@@ -99,9 +76,9 @@ def buscar_todas_questoes():
     conn = sqlite3.connect('bdpq.sqlite3')
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM questoes')
-    questoes = cursor.fetchall() # Pega todos os resultados
+    questoes = cursor.fetchall()
     conn.close()
-    return questoes # Retorna a lista para o app.py
+    return questoes
 
 def salvar_questao(enunciado, a, b, c, d, correta):
     conn = sqlite3.connect('bdpq.sqlite3')
@@ -114,7 +91,8 @@ def salvar_questao(enunciado, a, b, c, d, correta):
     conn.close()
 
 
-#lógica de resultado do quizz aluno
+# GESTÃO DE RESULTADOS
+
 def criar_tabela_resultados():
     conn = sqlite3.connect('bdpq.sqlite3')
     cursor = conn.cursor()
@@ -133,19 +111,16 @@ def salvar_resultado(email, nota):
     conn = sqlite3.connect('bdpq.sqlite3')
     cursor = conn.cursor()
     agora = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    
     cursor.execute('''
         INSERT INTO resultados (aluno_email, nota, data_hora)
         VALUES (?, ?, ?)
     ''', (email, nota, agora))
-    
     conn.commit()
     conn.close()
 
 def buscar_todos_resultados():
     conn = sqlite3.connect('bdpq.sqlite3')
     cursor = conn.cursor()
-    # Ordenamos pelos resultados mais recentes (DESC)
     cursor.execute('SELECT aluno_email, nota, data_hora FROM resultados ORDER BY id DESC')
     resultados = cursor.fetchall()
     conn.close()
