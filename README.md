@@ -35,29 +35,6 @@ Envio automático ao encerrar o tempo.
 
 Resultado imediato após a correção automática.
 
-Estrutura de Pastas
-
-
-/PlataformaDeTestesOnlineQuiz
-│
-├── app.py              # Arquivo principal (Rotas Flask)
-├── bdpq.py             # Funções de Banco de Dados (CRUD)
-├── static/             # Arquivos CSS e Imagens
-│   └── style.css       # Estilização estilo Kahoot
-├── templates/          # Arquivos HTML (Jinja2)
-│   ├── admin.html
-│   ├── aluno_quiz.html
-│   └── ...
-└── conteudo/           # Classes POO
-    └── multipla_escolha.py
-
-
-    Programação Orientada a Objetos (POO)
-Um dos pilares deste projeto é o uso de classes para abstrair a lógica de negócio. A classe QuestaoMultiplaEscolha encapsula:
-
-O armazenamento do enunciado e alternativas.
-
-A lógica de correção automática, comparando a resposta enviada pelo aluno com o gabarito de forma isolada do banco de dados.
 
     Como Executar o Projeto
     
