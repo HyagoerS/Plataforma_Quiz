@@ -132,7 +132,6 @@ def criar_tabela_resultados():
 def salvar_resultado(email, nota):
     conn = sqlite3.connect('bdpq.sqlite3')
     cursor = conn.cursor()
-    # Pega a data e hora atual do sistema
     agora = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     
     cursor.execute('''

@@ -11,7 +11,7 @@ bdpq.criar_tabela_resultados()
 
 
 app = Flask(__name__)
-app.secret_key = 'projeto_quiz_key' # ESSENCIAL
+app.secret_key = 'projeto_quiz_key'
 
 #senha padrão pré-definidas
 login = "admin"
@@ -55,17 +55,11 @@ def area_professor():
 def professor_criar_questao():
     return render_template("professor_criar_questao.html")
 
-@app.route('/professor/criar_teste')
-def professor_criar_teste():
-    return render_template("professor_criar_teste.html")
 
 @app.route('/professor/resultados')
 def professor_resultado():
     return render_template("professor_resultados.html")
 
-@app.route('/professor/temas')
-def professor_temas():
-    return render_template("professor_temas.html")
 
 
 # Rotas do Usuário Aluno
@@ -118,8 +112,6 @@ def logout():
     return redirect('/')
 
 #Cadastrar usuario
-# aqui chamar o POO ou bdpq
-# sistema.cadastrar_usuario(...)
 #Identificar por tipo, pegando pelo email aluno e professor
 @app.route('/cadastrar', methods=['POST'])
 def cadastrar():
@@ -129,7 +121,6 @@ def cadastrar():
     login = request.form.get('login')
     senha = request.form.get('senha')
     
-    # 2. Salva de verdade no banco
     try:
         bdpq.inserir_usuario(nome, email, login, senha)
         return render_template('admin_usuarios.html', mensagem="Usuário cadastrado com sucesso!")
@@ -153,15 +144,13 @@ def remover_funcionario():
 
 
 # Teste Quiz Aluno
-@app.route('/aluno/teste') # URL simples e fácil
+@app.route('/aluno/teste') 
 def exibir_teste():
-    # 1. Busca no banco
     dados_banco = bdpq.buscar_todas_questoes()
     
     # 2. DEBUG: Verifique se o console mostra as questões ao carregar a página
     print(f"DEBUG: Carregando {len(dados_banco)} questões para o aluno.")
 
-    # 3. Usa o HTML do jogo, passando o nome que o HTML espera (lista_questoes)
     return render_template("aluno_quiz.html", lista_questoes=dados_banco)
 
 @app.route('/aluno/corrigir_teste', methods=['POST'])
@@ -185,9 +174,9 @@ def corrigir_teste():
         objeto_questao = QuestaoMultiplaEscolha(
             id_questao=q[0],
             enunciado=q[1],
-            pontuacao=2.5, # Você pode definir fixo ou pegar do banco se tiver a coluna
-            opcoes=[q[2], q[3], q[4], q[5]], # Lista com as 4 alternativas
-            indice_correto=q[6] # A letra correta (A, B, C ou D)
+            pontuacao=2.5,
+            opcoes=[q[2], q[3], q[4], q[5]], 
+            indice_correto=q[6]
         )
         
         # 4. USO DO MÉTODO DO OBJETO
@@ -196,7 +185,7 @@ def corrigir_teste():
         nota_total += pontos_recebidos
         maximo_pontos += objeto_questao.pontuacao
 
-    # 5. Salva o resultado final
+    
     email_aluno = session.get('usuario_logado')
     if email_aluno:
         bdpq.salvar_resultado(email_aluno, nota_total)
@@ -205,8 +194,6 @@ def corrigir_teste():
 
 
 #Rota quizz do professor
-# No app.py
-
 
 @app.route('/professor/criar_questao', methods=['GET', 'POST'])
 def criar_questao():

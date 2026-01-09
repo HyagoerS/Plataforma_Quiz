@@ -25,7 +25,3 @@ class Professor(Usuario):
         super().__init__(id, nome, email, senha)
         self.especialidade = especialidade
 
-    def criar_tema(self, titulo, descricao):
-        # Aqui você futuramente instanciará a classe Tema (RF1)
-        print(f"Professor {self.nome} criou o tema: {titulo}")
-        # return Tema(titulo, descricao)
