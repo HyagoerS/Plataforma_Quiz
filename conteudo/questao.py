@@ -4,5 +4,5 @@ class Questao:
         self.enunciado = enunciado
         self.pontuacao = pontuacao
 
-    def corrigir(self, resposta_aluno):
+    def corrigir(self,):
         raise NotImplementedError("As classes filhas devem implementar a correção.")

@@ -3,7 +3,7 @@ class Sistema:
         self.usuarios = []
         self.turmas = [] 
 
-    # Esse método é útil se você quiser listar alunos na memória
+
     def cadastrar_aluno_na_memoria(self, aluno_obj):
         self.usuarios.append(aluno_obj)
 

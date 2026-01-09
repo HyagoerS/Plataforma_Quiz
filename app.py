@@ -78,8 +78,8 @@ def area_aluno():
 def aluno_resultado():
     return render_template("aluno_resultado.html")
 
-@app.route('/aluno/quiz') # Verifique se a URL está assim mesmo
-def aluno_quiz(): # Ou o nome que você deu
+@app.route('/aluno/quiz') 
+def aluno_quiz(): 
     questoes = bdpq.buscar_todas_questoes()
     return render_template("aluno_quiz.html", lista_questoes=questoes)
 
@@ -91,7 +91,7 @@ def autenticar():
     login_form = request.form.get("loginUsuario")
     senha_form = request.form.get("senhaUsuario")
 
-    # 1. Verificação Hardcoded (Admin/Professor padrão)
+
     if login_form == "admin" and str(senha_form) == "123":
         session['usuario_logado'] = "admin@sistema.com"
         session['perfil'] = 'admin'
@@ -113,14 +113,13 @@ def autenticar():
 
 @app.route('/logout')
 def logout():
-    session.clear() # Limpa tudo!
+    session.clear()
     
     return redirect('/')
 
 #Cadastrar usuario
 # aqui chamar o POO ou bdpq
 # sistema.cadastrar_usuario(...)
-#essa parte de cadastrar, ser apenas utilizado no projeto de Alex
 #Identificar por tipo, pegando pelo email aluno e professor
 @app.route('/cadastrar', methods=['POST'])
 def cadastrar():
@@ -167,35 +166,42 @@ def exibir_teste():
 
 @app.route('/aluno/corrigir_teste', methods=['POST'])
 def corrigir_teste():
-    # --- PARTE 1: CÁLCULO DA NOTA (Lógica que você já tinha) ---
+    # 1. Busca os dados brutos no banco
     questoes_banco = bdpq.buscar_todas_questoes()
-    nota_final = 0
-    total_possivel = 0
+    
+    nota_total = 0
+    maximo_pontos = 0
 
     for q in questoes_banco:
+        # q[0]=ID, q[1]=Enunciado, q[2]=Alt_A, q[3]=Alt_B, q[4]=Alt_C, q[5]=Alt_D, q[6]=Correta
+        
         id_q = q[0]
-        # Pega a resposta que o aluno marcou no HTML
-        resposta_aluno = request.form.get(f'resposta_{id_q}')
         
-        # Instancia sua classe POO para usar o método de correção
-        # Ordem: id, enunciado, pontuacao, lista_opcoes, correta
-        objeto_questao = QuestaoMultiplaEscolha(q[0], q[1], 2.5, [q[2],q[3],q[4],q[5]], q[6])
+        # 2. Pega o que o aluno marcou no formulário HTML
+        resposta_usuario = request.form.get(f'resposta_{id_q}')
         
-        # Soma os pontos se o aluno acertou
-        nota_final += objeto_questao.corrigir(resposta_aluno)
-        total_possivel += objeto_questao.pontuacao
+        # 3. INSTANCIAÇÃO DO OBJETO POO
+        # Passamos os dados do banco para o molde da classe
+        objeto_questao = QuestaoMultiplaEscolha(
+            id_questao=q[0],
+            enunciado=q[1],
+            pontuacao=2.5, # Você pode definir fixo ou pegar do banco se tiver a coluna
+            opcoes=[q[2], q[3], q[4], q[5]], # Lista com as 4 alternativas
+            indice_correto=q[6] # A letra correta (A, B, C ou D)
+        )
+        
+        # 4. USO DO MÉTODO DO OBJETO
+        # Aqui é a POO em ação: o objeto "sabe" se ele mesmo está correto
+        pontos_recebidos = objeto_questao.corrigir(resposta_usuario)
+        nota_total += pontos_recebidos
+        maximo_pontos += objeto_questao.pontuacao
 
-    # --- PARTE 2: SALVAMENTO (RF5 / RF10) ---
-    # Pegamos o email de quem está logado na sessão (RF7)
-    email_do_aluno = session.get('usuario_logado') 
+    # 5. Salva o resultado final
+    email_aluno = session.get('usuario_logado')
+    if email_aluno:
+        bdpq.salvar_resultado(email_aluno, nota_total)
     
-    # Se existir um usuário logado, gravamos a nota no banco de dados
-    if email_do_aluno:
-        bdpq.salvar_resultado(email_do_aluno, nota_final)
-    
-    # --- PARTE 3: EXIBIÇÃO ---
-    # Retorna a página final com a pontuação
-    return render_template("aluno_resultado.html", nota=nota_final, total=total_possivel)
+    return render_template("aluno_resultado.html", nota=nota_total, total=maximo_pontos)
 
 
 #Rota quizz do professor
@@ -205,7 +211,7 @@ def corrigir_teste():
 @app.route('/professor/criar_questao', methods=['GET', 'POST'])
 def criar_questao():
     if request.method == 'POST':
-        # 1. Pegamos os dados que o professor digitou no HTML
+
         enunciado = request.form.get('enunciado')
         pontos = float(request.form.get('pontuacao'))
         opcoes = [
@@ -216,8 +222,6 @@ def criar_questao():
         ]
         correta = request.form.get('correta')
 
-        # 2. Criamos o objeto usando a SUA classe POO!
-        # Passamos None para o ID porque o Banco vai gerar um automático
         nova_q = QuestaoMultiplaEscolha(None, enunciado, pontos, opcoes, correta)
 
         # 3. Chamamos o banco para salvar (RF2)

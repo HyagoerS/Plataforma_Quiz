@@ -7,7 +7,7 @@ class QuestaoMultiplaEscolha(Questao):
         self.__indice_correto = indice_correto
 
     def corrigir(self, resposta_aluno):
-        if resposta_aluno == self.__indice_correto:
+        if str(resposta_aluno).strip().upper() == str(self.__indice_correto).strip().upper():
             return self.pontuacao
         return 0
         

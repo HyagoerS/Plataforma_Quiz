@@ -1,7 +1,6 @@
-import sqlite3 as sqlite
+import sqlite3 
 from datetime import datetime
 
-import sqlite3
 
 def criar_tabela_alunos():
     conn = sqlite3.connect('bdpq.sqlite3') # Corrigido para sqlite3
@@ -25,44 +24,10 @@ def inserir_usuario(nome, email, login, senha):
     conn.commit()
     conn.close()
 
-def turmas():
-    conn = sqlite.connect('bdpq.sqlite3')
-    cursor = conn.cursor()
-    cursor.execute('''
-    CREATE TABLE IF NOT EXIST turmas(
-    id INTERGER PRIMARY KEY,
-    nome TEXT
-    )
-''')
-    conn.commit()
-    conn.close()
-
-def temas():
-    conn = sqlite.connect('bdpq.sqlite3')
-    cursor = conn.cursor()
-    cursor.execute('''
-    CREATE TABLE IF NOT EXIST temas(
-    id INTERGER PRIMARY KEY,
-    titulo TEXT,
-    descricao TEXT
-    )
-''')
-    conn.commit()
-    conn.close()
-
-def buscar_todas_questoes():
-    conn = sqlite.connect('bdpq.sqlite3')
-    cursor = conn.cursor()
-    # Pega tudo: ID, Enunciado, as 4 alternativas e a Correta
-    cursor.execute('SELECT * FROM questoes')
-    questoes = cursor.fetchall()
-    conn.close()
-    return questoes
-
 
 #Lógicas relacionadas a Usuários
 def cadastrar(email, nome, login, senha):
-    conn = sqlite.connect('bdpq.sqlite3')
+    conn = sqlite3.connect('bdpq.sqlite3')
     cursor = conn.cursor()
 
     cursor.execute("INSERT INTO alunos (email, nome, login, senha) VALUES (?, ?, ?, ?)", (email, nome, login, senha,))
@@ -73,7 +38,7 @@ def cadastrar(email, nome, login, senha):
 
 
 def login(login, senha):
-    conn = sqlite.connect('bdpq.sqlite3')
+    conn = sqlite3.connect('bdpq.sqlite3')
     cursor = conn.cursor()
 
     cursor.execute("SELECT * FROM alunos WHERE login=? and senha=?", (login, senha) )
@@ -83,7 +48,7 @@ def login(login, senha):
 
 
 def remover(email):
-    conn = sqlite.connect('bdpq.sqlite3')
+    conn = sqlite3.connect('bdpq.sqlite3')
     cursor = conn.cursor()
 
     cursor.execute("DELETE FROM alunos WHERE email=?", (email,))
@@ -93,7 +58,7 @@ def remover(email):
     conn.close()
     return linhas_afetadas > 0 
 
-import sqlite3
+
 
 def usuario():
     conn = sqlite3.connect('bdpq.sqlite3')
@@ -114,7 +79,7 @@ def usuario():
 
 #Lógica relacionada a questões/quizz
 def criar_tabela_questoes():
-    conn = sqlite.connect('bdpq.sqlite3')
+    conn = sqlite3.connect('bdpq.sqlite3')
     cursor = conn.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS questoes (
@@ -139,7 +104,7 @@ def buscar_todas_questoes():
     return questoes # Retorna a lista para o app.py
 
 def salvar_questao(enunciado, a, b, c, d, correta):
-    conn = sqlite.connect('bdpq.sqlite3')
+    conn = sqlite3.connect('bdpq.sqlite3')
     cursor = conn.cursor()
     cursor.execute('''
         INSERT INTO questoes (enunciado, alternativa_a, alternativa_b, alternativa_c, alternativa_d, correta)

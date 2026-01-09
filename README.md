@@ -26,7 +26,7 @@ Definição de pontuação por questão.
 
 Visualização de resultados e notas dos alunos.
 
-🎓 Aluno
+Aluno
 Realização de testes com interface dinâmica.
 
 Cronômetro regressivo para controle de tempo.
@@ -50,28 +50,25 @@ Estrutura de Pastas
 │   └── ...
 └── conteudo/           # Classes POO
     └── multipla_escolha.py
-🧩 Programação Orientada a Objetos (POO)
+
+
+    Programação Orientada a Objetos (POO)
 Um dos pilares deste projeto é o uso de classes para abstrair a lógica de negócio. A classe QuestaoMultiplaEscolha encapsula:
 
 O armazenamento do enunciado e alternativas.
 
 A lógica de correção automática, comparando a resposta enviada pelo aluno com o gabarito de forma isolada do banco de dados.
 
-🚀 Como Executar o Projeto
+    Como Executar o Projeto
+    
 Instale as dependências:
-
-Bash
-
 pip install flask
+
 Inicie o servidor:
-
-Bash
-
 python app.py
 
 Credenciais Padrão (Teste)
+
 Admin: login: admin | senha: 123
-
 Professor: login: professor | senha: 123
-
 Aluno: Realizar cadastro no painel admin ou usar dados salvos no banco.
